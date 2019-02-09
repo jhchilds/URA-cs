@@ -27,5 +27,15 @@ Do not add any other files to git.
 There are too many files in the API for git to handle and it WILL crash if you try to force adding all of these files. We will only be using version control for specific files concerning the UniversalReaderAssistant. 
 
 
+### Documentation
+Within file UI/UserControls/ucTagResults.xaml.cs, line 266, there is `TagReadRecord tr = (TagReadRecord)row.Item;` This may be where tag data is being updated to the tag results table. 
+
+# TODO:
+- [] test with reader and print out contents to the console to see what this returns.
+
+
+
+
+
 
 
