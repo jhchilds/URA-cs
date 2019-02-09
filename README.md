@@ -31,7 +31,7 @@ There are too many files in the API for git to handle and it WILL crash if you t
 Within file UI/UserControls/ucTagResults.xaml.cs, line 266, there is `TagReadRecord tr = (TagReadRecord)row.Item;` This may be where tag data is being updated to the tag results table. 
 
 # TODO:
-- [ ] Test ```C# TagReadRecord tr = (TagReadRecord)row.Item;` with reader and print out contents to the console to see what this returns.
+- [ ] Test ```C# TagReadRecord tr = (TagReadRecord)row.Item;``` with reader and print out contents to the console to see what this returns.
 
 
 
