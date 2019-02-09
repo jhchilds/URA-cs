@@ -17,7 +17,10 @@ This is comprehensive RFID reader software built from the C# version of the Merc
 2. This will set up proper directory path to URA, but will not contain Mercury API contents.
 3. You will need to do this manually.
 4. Compare the mercuryapi-1.31.2.40/cs and URA-cs-master/cs and copy and paste ALL files in each directory, as there are many dependencies to be satisfied.
-5. After completing this task, you should be able to push and pull files from URA-cs-master/cs/Samples/UniversalReaderAssistant2.0/UniversalReaderAssistant2.0/UI
+5. After completing this task, you should be able to push and pull files from:
+```
+URA-cs-master/cs/Samples/UniversalReaderAssistant2.0/UniversalReaderAssistant2.0/UI
+```
 
 
 ### This project only involves editing UniversalReaderAssistant2.0.csproj 
