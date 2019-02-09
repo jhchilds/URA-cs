@@ -26,6 +26,28 @@ Do not add any other files to git.
 ## DO NOT USE COMMAND `git add -A` 
 There are too many files in the API for git to handle and it WILL crash if you try to force adding all of these files. We will only be using version control for specific files concerning the UniversalReaderAssistant. 
 
+## Branching
+
+Create branch:
+
+`git checkout -b name_of_branch`
+
+*EDIT, ADD AND COMMIT FILES*
+
+`git push -u origin name_of_branch`
+
+DELETE branch:
+```
+git checkout master
+
+git branch -d name_of_branch
+```
+
+OR 
+
+FORCE DELETE:
+
+`git branch -D name_of_branch`
 
 ### Documentation
 
