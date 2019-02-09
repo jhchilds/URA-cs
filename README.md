@@ -12,11 +12,19 @@ This is comprehensive RFID reader software built from the C# version of the Merc
 7. Use command `git pull origin master`
 8. If the steps are followed correctly you should be able pull without any conflicts.
 
-### This project only involves editing UniversalReaderAssistant2.0.csproj
+## Setting Up Proper Dependencies Alternative
+1. Clone the repository by downloading the zip file. You'll need to initialize the repo locally and add the remote correctly as described above. Test this connection to the remote by making a small edit to this README and pushing, make no other changes unless contacting me first.  
+2. This will set up proper directory path to URA, but will not contain Mercury API contents.
+3. You will need to do this manually.
+4. Compare the mercuryapi-1.31.2.40/cs and URA-cs-master/cs and copy and paste ALL files in each directory, as there are many dependencies to be satisfied.
+5. After completing this task, you should be able to push and pull files from URA-cs-master/cs/Samples/UniversalReaderAssistant2.0/UniversalReaderAssistant2.0/UI
+
+
+### This project only involves editing UniversalReaderAssistant2.0.csproj 
 Do not add any other files to git. 
 
 ## DO NOT USE COMMAND `git add -A` 
-There are too many files in the API for git to handle.
+There are too many files in the API for git to handle and it WILL crash if you try to force adding all of these files. We will only be using version control for specific files concerning the UniversalReaderAssistant. 
 
 
 
