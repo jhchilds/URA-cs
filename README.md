@@ -29,12 +29,14 @@ There are too many files in the API for git to handle and it WILL crash if you t
 ## Branching
 
 Create branch:
-
-`git checkout -b name_of_branch`
+```
+git checkout -b name_of_branch
+```
 
 *EDIT, ADD AND COMMIT FILES*
-
-`git push -u origin name_of_branch`
+```
+git push -u origin name_of_branch
+```
 
 DELETE branch:
 ```
@@ -46,8 +48,9 @@ git branch -d name_of_branch
 OR 
 
 FORCE DELETE:
-
-`git branch -D name_of_branch`
+```
+git branch -D name_of_branch
+```
 
 ### Documentation
 
