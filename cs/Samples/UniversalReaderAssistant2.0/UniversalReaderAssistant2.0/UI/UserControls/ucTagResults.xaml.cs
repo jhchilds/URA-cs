@@ -53,7 +53,7 @@ namespace ThingMagic.URA2
             serialNoColumn.Header = "#";
             serialNoColumn.Width = new DataGridLength(1, DataGridLengthUnitType.Auto);
             epcColumn.Binding = new Binding("EPC");
-            epcColumn.Header = "JOSH WAS HERE";
+            epcColumn.Header = "EPC";
             epcColumn.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
             timeStampColumn.Binding = new Binding("TimeStamp");
             timeStampColumn.Binding.StringFormat = "{0:hh:mm:ss.fff tt}";
