@@ -25,6 +25,15 @@ Do not add any other files to git.
 ## DO NOT USE COMMAND `git add -A` 
 There are too many files in the URA for git to handle and it WILL crash if you try to force adding all of these files. We will only be using version control for specific files concerning the UniversalReaderAssistant. 
 
+### MICROSOFT VISUAL STUDIO BUG 
+There is a bug in Visual Studio that I researched thoroughly. Although the project will build and run smoothly, VS will say there is an error with an XAML file "Busy Indicator". In reality, there is no issue, but it gets annoying because VS will not permit you to look at the Design Windows for UI modification.
+# To fix this
+1. Change the target build to  "Release x64". 
+2. Clean and Rebuild the project. 
+3. Change back to our desired target, which for now is "Debug x86". 
+4. Clean and Rebuild. 
+This should solve the problem as I've successfully handled the issue in this manner twice. It seems to be a mystery as to why this works on several online forums.
+
 ## Branching
 
 Create branch:
@@ -66,7 +75,9 @@ Within UI/Main.xaml.cs, line 2263, lies the for creating and writing tag data to
 
 - [ ] Filter out tag data on tag results table without VTrans prefix in EPC
 
-- [ ] Filter out tag data when saving to a csv table without VTrans prefix in EPC
+- [ ] Connecting URA to MS SQL SERVER via TCP/IP Data Streaming
+
+- [ ] Edit URA GUI 
 
 
 
