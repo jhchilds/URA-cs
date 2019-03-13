@@ -3,8 +3,8 @@ This is comprehensive RFID reader software built from the C# version of the Merc
 [Mercury API Download](https://www.jadaktech.com/documentation/rfid/mercuryapi/)
 ## Setting Up Proper Dependencies
 
-1. Create a directory called software_cs on your PC.
-2. Copy and paste the entire cs version of the Mercury API in this directory. (this may take some time)
+1. Create an empty directory on your PC.
+2. Follow instructions below on cloning:
 3. If you have not created an SSH key for your device, follow the steps on this page [SSH Keys](https://help.github.com/articles/checking-for-existing-ssh-keys/) (all the way to end! Last step is to add ssh key to github). First, check for existing keys, then generate new ssh key, then add key to github. Make sure the email you specify is an email you have linked to your github account. 
 4. Navigate to this directory in Git Bash/Terminal.
 5. Use command `git init` to initialize git repository.
@@ -12,22 +12,18 @@ This is comprehensive RFID reader software built from the C# version of the Merc
 7. Use command `git pull origin master`
 8. If the steps are followed correctly you should be able pull without any conflicts.
 
-## Setting Up Proper Dependencies Alternative
-1. Clone the repository by downloading the zip file. You'll need to initialize the repo locally and add the remote correctly as described above. Test this connection to the remote by making a small edit to this README and pushing, make no other changes unless contacting me first.  
-2. This will set up proper directory path to URA, but will not contain Mercury API contents.
-3. You will need to do this manually.
-4. Compare the mercuryapi-1.31.2.40/cs and URA-cs-master/cs and copy and paste ALL files in each directory, as there are many dependencies to be satisfied.
-5. After completing this task, you should be able to push and pull files from:
-```
-URA-cs-master/cs/Samples/UniversalReaderAssistant2.0/UniversalReaderAssistant2.0/UI
-```
+## Proper Workflow
+1. There are a lot of files in the URA that we will not be modifying. 
+2. Therefore, we keep a fully functioning UniversalReaderAssistant2.0/UniversalReaderAssistant2.0 directory in order to properly build and run in Visual Studio. 
+3. We will copy and paste files into our initialized repository, only modifying files connected to git.
+4. Edit files, paste/replace files in full directory for test and build. 
 
 
-### This project only involves editing UniversalReaderAssistant2.0.csproj 
+### This project only involves editing a few files in the UniversalReaderAssistant Application
 Do not add any other files to git. 
 
 ## DO NOT USE COMMAND `git add -A` 
-There are too many files in the API for git to handle and it WILL crash if you try to force adding all of these files. We will only be using version control for specific files concerning the UniversalReaderAssistant. 
+There are too many files in the URA for git to handle and it WILL crash if you try to force adding all of these files. We will only be using version control for specific files concerning the UniversalReaderAssistant. 
 
 ## Branching
 
