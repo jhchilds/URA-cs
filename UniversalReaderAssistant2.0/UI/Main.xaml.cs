@@ -14351,5 +14351,35 @@ namespace ThingMagic.URA2
                 catch { }
             }
         }
+
+        private void tiDatabase_GotFocus(object sender, RoutedEventArgs e)
+        {
+            WriteEpc.LoadEPC(objReader);
+            if (lblshowStatus.Content.ToString() == "Reading")
+            {
+                tiTagResults.Focus();
+                return;
+            }
+            if (!IsGen2ProtocolChecked(false))
+            {
+                return;
+            }
+            if (btnRead.Visibility == System.Windows.Visibility.Visible)
+            {
+                WriteEpc.spWriteEPC.IsEnabled = true;
+            }
+            btnRead.IsEnabled = false;
+
+            //Disable clear tag results button and save on tool bar when tabs other then Tag Results is clicked
+            btnClearTagReads.IsEnabled = false;
+            saveData.IsEnabled = false;
+            gen2CheckBox.IsEnabled = false;
+            iso6bCheckBox.IsEnabled = false;
+            ipx64CheckBox.IsEnabled = false;
+            ipx256CheckBox.IsEnabled = false;
+            ataCheckBox.IsEnabled = false;
+            isoUcodeCheckbox.IsEnabled = false;
+            TagResults.dgTagResults.UnselectAll();
+        }
     }
 }

@@ -189,6 +189,9 @@
     <Compile Include="UI\UserControls\ucUserMemory.xaml.cs">
       <DependentUpon>ucUserMemory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserControls\ucDatabase.xaml.cs">
+      <DependentUpon>ucDatabase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Utilities.cs" />
     <Compile Include="BL\SortableBindingList.cs" />
     <Compile Include="UI\WindowHelper.cs" />
@@ -273,6 +276,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UserControls\ucUserMemory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserControls\ucDatabase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

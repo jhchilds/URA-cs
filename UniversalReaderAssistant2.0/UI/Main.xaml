@@ -9,6 +9,9 @@
         xmlns:ucLockTag="clr-namespace:ThingMagic.URA2"
         xmlns:ucUntraceable="clr-namespace:ThingMagic.URA2"
         xmlns:ucAuthenticate="clr-namespace:ThingMagic.URA2"
+                
+        xmlns:ucDatabase="clr-namespace:ThingMagic.URA2"
+
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Universal Reader Assistant" Icon="/UniversalReaderAssistant;component/Icons/jadakfaviconbg.ico" WindowStartupLocation="CenterScreen" Closing="Window_Closing" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  d:DesignHeight="768" d:DesignWidth="1024" DataContext="{Binding ElementName=tcTagResults}" WindowState="Maximized">
     <Window.CommandBindings>
@@ -193,6 +196,8 @@
                                 <MenuItem Header="Lock Tag" Click="MenuItem_Click"/>
                                 <MenuItem Header="Untraceable" Click="MenuItem_Click"/>
                                 <MenuItem Header="Authenticate" Click="MenuItem_Click"/>
+                                <MenuItem Header="Database" Click="MenuItem_Click"/>
+
                             </ContextMenu>
                         </TabItem.ContextMenu>
                         <Grid>
@@ -347,6 +352,29 @@
                             </ScrollViewer>
                         </Grid>
                     </TabItem>
+                    <TabItem Name="tiDatabase" Background="Aqua" GotFocus ="tiDatabase_GotFocus">
+                        <TabItem.Header>
+                            <TextBlock Text="Database" Margin="2">
+                                <TextBlock.ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Database (TabItem)</TextBlock>
+                                        <TextBlock>The “Database" Tab is used to connect to a Database in MSSQL Server in order to display and edit tag data remotely.</TextBlock>
+                                        <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
+                                        <WrapPanel>
+                                            <!--<Image Source="/WpfTutorialSamples;component/Images/help.png" Margin="0,0,5,0" />-->
+                                            <TextBlock FontStyle="Italic">Press F1 for more help</TextBlock>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </TextBlock.ToolTip>
+                            </TextBlock>
+                        </TabItem.Header>
+                        <Grid Background="#E2EEFA">
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <ucDatabase:ucDatabase x:Name="Database" Width="auto" DataContext="{Binding}"/>
+                            </ScrollViewer>
+                        </Grid>
+                    </TabItem>
+
                 </TabControl>
             </Grid>
             <!-- Layer 1: -->
