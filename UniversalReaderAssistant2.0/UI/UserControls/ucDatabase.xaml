@@ -13,44 +13,45 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Orientation="Vertical" Margin="10" Name="spWriteEPC" IsEnabled="False" Width="600" HorizontalAlignment="Left">
-        <GroupBox Name="tagtowrite" Background="White">
+
+        <GroupBox x:Name="tagtowrite" Background="White">
             <GroupBox.Header>
-                <TextBlock FontWeight="Bold">Desired Tag</TextBlock>
+                <TextBlock FontWeight="Bold"><Run Text="Desired Tag"/></TextBlock>
             </GroupBox.Header>
-            <StackPanel Name="grid1" Margin="5" Orientation="Vertical">
+            <StackPanel x:Name="grid1" Margin="5" Orientation="Vertical">
                 <StackPanel.Resources>
                     <BooleanToVisibilityConverter x:Key="boolToVisible"/>
                 </StackPanel.Resources>
-                <RadioButton Checked="rbFirstTag_Checked" Content="First tag to respond " GroupName="Tagtowriteto" IsChecked="True" HorizontalAlignment="Left" Margin="3" Name="rbFirstTag" VerticalAlignment="Top" />
-                <RadioButton ToolTipService.ShowOnDisabled="True" ToolTip="Go to Tag Results tab and right-click on a data cell"  Content="Tag selected in Tag Results page" GroupName="Tagtowriteto" HorizontalAlignment="Left" Margin="3" Name="rbSelectedTag" VerticalAlignment="Top" IsEnabled="False"/>
-                <Grid Name="gdTagSelectionCriteria" Margin="5" Visibility="{Binding ElementName=rbSelectedTag, Path=IsChecked, Converter={StaticResource boolToVisible}}">
+                <RadioButton Checked="rbFirstTag_Checked" Content="First tag to respond " GroupName="Tagtowriteto" IsChecked="True" HorizontalAlignment="Left" Margin="3" x:Name="rbFirstTag" VerticalAlignment="Top" />
+                <RadioButton ToolTipService.ShowOnDisabled="True" ToolTip="Go to Tag Results tab and right-click on a data cell"  Content="Tag selected in Tag Results page" GroupName="Tagtowriteto" HorizontalAlignment="Left" Margin="3" x:Name="rbSelectedTag" VerticalAlignment="Top" IsEnabled="False"/>
+                <Grid x:Name="gdTagSelectionCriteria" Margin="5" Visibility="{Binding IsChecked, Converter={StaticResource boolToVisible}, ElementName=rbSelectedTag}">
                     <StackPanel Orientation="Vertical" Margin="3">
-                        <Label Name="lblFilterDisplay" HorizontalAlignment="Left"  Content="Select Filter for WriteEPC:"   Width="auto" VerticalAlignment="Top"></Label>
-                        <Label Content=""  HorizontalAlignment="Left"  Name="lblSelectFilter" VerticalAlignment="Top" Width="auto" />
+                        <Label x:Name="lblFilterDisplay" HorizontalAlignment="Left"  Content="Select Filter for WriteEPC:"   Width="auto" VerticalAlignment="Top"/>
+                        <Label Content=""  HorizontalAlignment="Left"  x:Name="lblSelectFilter" VerticalAlignment="Top" Width="auto" />
                     </StackPanel>
-                    <TextBox HorizontalAlignment="Left" Margin="220,20,0,0" Name="txtEpc" VerticalAlignment="Top" Width="28" Visibility="Hidden" />
-                    <TextBox HorizontalAlignment="Left" Margin="270,20,0,0" Name="txtData" VerticalAlignment="Top" Visibility="Hidden" Width="28" />
+                    <TextBox HorizontalAlignment="Left" Margin="220,20,0,0" x:Name="txtEpc" VerticalAlignment="Top" Width="28" Visibility="Hidden" />
+                    <TextBox HorizontalAlignment="Left" Margin="270,20,0,0" x:Name="txtData" VerticalAlignment="Top" Visibility="Hidden" Width="28" />
                 </Grid>
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Name="gbRespresentEPC" Background="White">
+        <GroupBox x:Name="gbRespresentEPC" Background="White">
             <GroupBox.Header>
-                <TextBlock FontWeight="Bold">How to represent EPC</TextBlock>
+                <TextBlock FontWeight="Bold"><Run Text="How to represent EPC"/></TextBlock>
             </GroupBox.Header>
-            <StackPanel Orientation="Vertical" Name="grid2" Margin="5">
-                <RadioButton Content="Hexadecimal" Checked="rbHexRep_Checked" GroupName="RepresentEPC" IsChecked="True" Margin="3" Name="rbHexRep" />
-                <RadioButton Content="ASCII Text" Checked="rbASCIIRep_Checked" GroupName="RepresentEPC" Margin="3" Name="rbASCIIRep" />
-                <RadioButton Content="Reverse Base 36" Checked="rbReverseBase36Rep_Checked" GroupName="RepresentEPC" Margin="3" Name="rbReverseBase36Rep" />
+            <StackPanel Orientation="Vertical" x:Name="grid2" Margin="5">
+                <RadioButton Content="Hexadecimal" Checked="rbHexRep_Checked" GroupName="RepresentEPC" IsChecked="True" Margin="3" x:Name="rbHexRep" />
+                <RadioButton Content="ASCII Text" Checked="rbASCIIRep_Checked" GroupName="RepresentEPC" Margin="3" x:Name="rbASCIIRep" />
+                <RadioButton Content="Reverse Base 36" Checked="rbReverseBase36Rep_Checked" GroupName="RepresentEPC" Margin="3" x:Name="rbReverseBase36Rep" />
             </StackPanel>
         </GroupBox>
-        <GroupBox Name="gbCurrentEPC" Background="White">
+        <GroupBox x:Name="gbCurrentEPC" Background="White" Height="118">
             <GroupBox.Header>
-                <TextBlock FontWeight="Bold">Current EPC</TextBlock>
+                <TextBlock FontWeight="Bold"><Run Text="Tag Information"/></TextBlock>
             </GroupBox.Header>
-            <StackPanel Height="Auto" Name="grid3" Margin="5" Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <TextBox Cursor="Arrow" Margin="3" Name="txtCurrentEpc" Background="#0A000000"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="283" CharacterCasing="Normal" FontFamily="Consolas" TextWrapping="Wrap" IsReadOnly="False" VerticalScrollBarVisibility="Auto" PreviewTextInput="txtCurrentEpc_PreviewTextInput" PreviewKeyDown="txtCurrentEpc_PreviewKeyDown">
+            <StackPanel Height="Auto" x:Name="grid3" Margin="5" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="34,0,177,0">
+                    <TextBox Cursor="Arrow" Margin="3" x:Name="txtCurrentEpc" Background="#0A000000"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="248" CharacterCasing="Normal" FontFamily="Consolas" TextWrapping="Wrap" IsReadOnly="False" VerticalScrollBarVisibility="Auto" PreviewTextInput="txtCurrentEpc_PreviewTextInput" PreviewKeyDown="txtCurrentEpc_PreviewKeyDown">
                         <TextBox.CommandBindings>
                             <CommandBinding Command="Paste" CanExecute="CommandBinding_CanExecute"/>
                             <CommandBinding Command="Cut" CanExecute="CommandBinding_CanExecute"/>
@@ -59,14 +60,23 @@
                             <ContextMenu Visibility="Collapsed"/>
                         </TextBox.ContextMenu>
                     </TextBox>
-                    <Button Content="Read" Width="50" HorizontalAlignment="Left" Margin="3" Name="btnRead" VerticalAlignment="Center" Click="btnRead_Click" />
+                    <Button Content="Read" Width="47" HorizontalAlignment="Left" Margin="0,3" x:Name="btnRead" VerticalAlignment="Center" Click="btnRead_Click" RenderTransformOrigin="2.41,0.58" />
                 </StackPanel>
-                <Label Content="Error" HorizontalAlignment="Left" Margin="3" Name="lblError" VerticalAlignment="Center" Visibility="Hidden"  Width="auto" Foreground="#FFF60909" OpacityMask="#FFFA0000" />
+                <TextBox Cursor="Arrow" Margin="37,3,0,3" x:Name="txtBoxTagComments" Background="#0A000000"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="248" CharacterCasing="Normal" FontFamily="Consolas" TextWrapping="Wrap" IsReadOnly="False" VerticalScrollBarVisibility="Auto" PreviewTextInput="txtCurrentEpc_PreviewTextInput" PreviewKeyDown="txtCurrentEpc_PreviewKeyDown" Height="49">
+                    <TextBox.CommandBindings>
+                        <CommandBinding Command="Paste" CanExecute="CommandBinding_CanExecute"/>
+                        <CommandBinding Command="Cut" CanExecute="CommandBinding_CanExecute"/>
+                    </TextBox.CommandBindings>
+                    <TextBox.ContextMenu>
+                        <ContextMenu Visibility="Collapsed"/>
+                    </TextBox.ContextMenu>
+                </TextBox>
+                <Label Content="Error" HorizontalAlignment="Left" Margin="3" x:Name="lblError" VerticalAlignment="Center" Visibility="Hidden"  Width="auto" Foreground="#FFF60909" OpacityMask="#FFFA0000" />
             </StackPanel>
         </GroupBox>
 
     </StackPanel>
-    
-    
+
+
 
 </UserControl>
