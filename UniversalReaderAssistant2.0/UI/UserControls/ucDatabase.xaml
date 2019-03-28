@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="705">
+             mc:Ignorable="d" Width="817" Height="589">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,9 +11,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel Orientation="Vertical" Margin="10" Name="spWriteEPC" IsEnabled="False" Width="600" HorizontalAlignment="Left">
+    <StackPanel Orientation="Vertical" Margin="10,10,0,10" Name="spWriteEPC" IsEnabled="False" Width="797" HorizontalAlignment="Left">
 
-        <GroupBox x:Name="tagtowrite" Background="White">
+        <GroupBox x:Name="tagtowrite" Background="White" Margin="0,0,349,0">
             <GroupBox.Header>
                 <TextBlock FontWeight="Bold"><Run Text="Desired Tag"/></TextBlock>
             </GroupBox.Header>
@@ -45,9 +44,9 @@
                 <RadioButton Content="Reverse Base 36" Checked="rbReverseBase36Rep_Checked" GroupName="RepresentEPC" Margin="3" x:Name="rbReverseBase36Rep" />
             </StackPanel>
         </GroupBox>
-        <GroupBox x:Name="gbCurrentEPC" Background="White" Height="118">
+        <GroupBox x:Name="gbCurrentEPC" Height="64" Background="White">
             <GroupBox.Header>
-                <TextBlock FontWeight="Bold"><Run Text="Tag Information"/></TextBlock>
+                <TextBlock FontWeight="Bold" Text="Current Tag"/>
             </GroupBox.Header>
             <StackPanel Height="Auto" x:Name="grid3" Margin="5" Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Margin="34,0,177,0">
@@ -62,18 +61,10 @@
                     </TextBox>
                     <Button Content="Read" Width="47" HorizontalAlignment="Left" Margin="0,3" x:Name="btnRead" VerticalAlignment="Center" Click="btnRead_Click" RenderTransformOrigin="2.41,0.58" />
                 </StackPanel>
-                <TextBox Cursor="Arrow" Margin="37,3,0,3" x:Name="txtBoxTagComments" Background="#0A000000"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="248" CharacterCasing="Normal" FontFamily="Consolas" TextWrapping="Wrap" IsReadOnly="False" VerticalScrollBarVisibility="Auto" PreviewTextInput="txtCurrentEpc_PreviewTextInput" PreviewKeyDown="txtCurrentEpc_PreviewKeyDown" Height="49">
-                    <TextBox.CommandBindings>
-                        <CommandBinding Command="Paste" CanExecute="CommandBinding_CanExecute"/>
-                        <CommandBinding Command="Cut" CanExecute="CommandBinding_CanExecute"/>
-                    </TextBox.CommandBindings>
-                    <TextBox.ContextMenu>
-                        <ContextMenu Visibility="Collapsed"/>
-                    </TextBox.ContextMenu>
-                </TextBox>
                 <Label Content="Error" HorizontalAlignment="Left" Margin="3" x:Name="lblError" VerticalAlignment="Center" Visibility="Hidden"  Width="auto" Foreground="#FFF60909" OpacityMask="#FFFA0000" />
             </StackPanel>
         </GroupBox>
+
 
     </StackPanel>
 
