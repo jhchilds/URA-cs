@@ -113,9 +113,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -145,6 +147,7 @@
     <Compile Include="BL\TagResults.cs" />
     <Compile Include="Converter\DeviceTypeCheckConverter.cs" />
     <Compile Include="Models\ReaderConnectionDetail.cs" />
+    <Compile Include="UI\RfidTags.cs" />
     <Compile Include="UI\ConnectionWizard.xaml.cs">
       <DependentUpon>ConnectionWizard.xaml</DependentUpon>
     </Compile>

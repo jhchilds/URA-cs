@@ -2654,6 +2654,7 @@ namespace ThingMagic.URA2
                         tiLockTag.IsEnabled = false;
                         tiUntraceable.IsEnabled = false;
                         tiAuthenticate.IsEnabled = false;
+                        tiDatabase.IsEnabled = false;
                         tiTagResults.Focus();
 
                         // Reset protocols
@@ -2870,6 +2871,7 @@ namespace ThingMagic.URA2
                 tiLockTag.IsEnabled = true;
                 tiUntraceable.IsEnabled = true;
                 tiAuthenticate.IsEnabled = true;
+                tiDatabase.IsEnabled = true;
 
                 GUIturnoffWarning();
 
@@ -8121,6 +8123,12 @@ namespace ThingMagic.URA2
                     tiWriteEPC.Focus();
                     tiWriteEPC.Visibility = System.Windows.Visibility.Visible;
                     WriteEpc.Load(objReader, startAddressToUC, readLengthToUC, memBankToUC, tagRead);
+                    break;
+
+                case "Database":
+                    tiDatabase.Focus();
+                    tiDatabase.Visibility = System.Windows.Visibility.Visible;
+                    Database.Load(objReader, startAddressToUC, readLengthToUC, memBankToUC, tagRead);
                     break;
 
                 case "Inspect Tag":
@@ -14352,21 +14360,27 @@ namespace ThingMagic.URA2
             }
         }
 
+        /// <summary>
+        /// Database Tab
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tiDatabase_GotFocus(object sender, RoutedEventArgs e)
         {
-            WriteEpc.LoadEPC(objReader);
+            Database.spDatabase.IsEnabled = true;
+            Database.LoadEPC(objReader);
             if (lblshowStatus.Content.ToString() == "Reading")
             {
                 tiTagResults.Focus();
                 return;
             }
-            if (!IsGen2ProtocolChecked(false))
-            {
-                return;
-            }
+            //if (!IsGen2ProtocolChecked(false))
+            //{
+            //    return;
+            //}
             if (btnRead.Visibility == System.Windows.Visibility.Visible)
             {
-                WriteEpc.spWriteEPC.IsEnabled = true;
+                Database.spDatabase.IsEnabled = true;
             }
             btnRead.IsEnabled = false;
 

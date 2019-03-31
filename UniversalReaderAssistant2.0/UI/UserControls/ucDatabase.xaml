@@ -11,9 +11,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel Orientation="Vertical" Margin="10,10,0,10" Name="spWriteEPC" IsEnabled="False" Width="797" HorizontalAlignment="Left">
+    <StackPanel Orientation="Vertical" Margin="10,10,0,10" Name="spDatabase" IsEnabled="False" Width="797" HorizontalAlignment="Left" Loaded="SpDatabase_Loaded">
 
-        <GroupBox x:Name="tagtowrite" Background="White" Margin="0,0,349,0">
+        <GroupBox x:Name="tagtowrite" Background="White">
             <GroupBox.Header>
                 <TextBlock FontWeight="Bold"><Run Text="Desired Tag"/></TextBlock>
             </GroupBox.Header>
@@ -64,6 +64,32 @@
                 <Label Content="Error" HorizontalAlignment="Left" Margin="3" x:Name="lblError" VerticalAlignment="Center" Visibility="Hidden"  Width="auto" Foreground="#FFF60909" OpacityMask="#FFFA0000" />
             </StackPanel>
         </GroupBox>
+        <Canvas x:Name="dataCanvas" Height="319">
+            <GroupBox x:Name="gbRfidData" Header="RFID Data" Height="216" Width="357" Background="White" FontWeight="Bold" Canvas.Left="10"/>
+            <GroupBox x:Name="gbAssetData" Header="Asset Data" Height="188" Canvas.Left="420" Width="367" Background="White" FontWeight="Bold"/>
+            <Button x:Name="btnRFIDUpdate" Content="Update" Canvas.Left="159" Canvas.Top="184" Width="60" Height="23" FontWeight="Bold" Foreground="Black"/>
+            <Button x:Name="btnRFIDClear" Content="Clear" Canvas.Left="224" Canvas.Top="184" Width="62" FontWeight="Bold" Foreground="Black"/>
+            <Button x:Name="btnRFIDInsert" Content="Insert" Height="23" Canvas.Left="96" Canvas.Top="184" Width="58" FontWeight="Bold" Foreground="Black"/>
+            <Button x:Name="btnRFIDDelete" Content="Delete" Canvas.Left="291" Canvas.Top="184" Width="66" FontWeight="Bold" Foreground="Black"/>
+            <Button x:Name="btnAssetUpdate" Content="Update" Canvas.Left="584" Canvas.Top="156" Width="60" Height="23" FontWeight="Bold" Foreground="Black"/>
+            <Button x:Name="btnAssetClear" Content="Clear" Canvas.Left="649" Canvas.Top="156" Width="62" FontWeight="Bold" Foreground="Black"/>
+            <Button x:Name="btnAssetInsert" Content="Insert" Height="23" Canvas.Left="521" Canvas.Top="156" Width="58" FontWeight="Bold" Foreground="Black"/>
+            <Button x:Name="btnAssetDelete" Content="Delete" Canvas.Left="716" Canvas.Top="156" Width="66" FontWeight="Bold" Foreground="Black"/>
+            <TextBox x:Name="txtRFIDDatabaseID" Height="23" Canvas.Left="116" TextWrapping="Wrap" Canvas.Top="27" Width="120" IsReadOnly="True"/>
+            <Label x:Name="lblRFIDDatabaseID" Content="Database ID" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="27" Height="23" FontSize="12" Foreground="Black" HorizontalAlignment="Center"/>
+            <TextBox x:Name="txtRFIDManufactureDate" Height="23" Canvas.Left="116" TextWrapping="Wrap" Canvas.Top="55" Width="120"/>
+            <Label x:Name="lblRFIDManufactureDate" Content="Manufacture Date" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="55" Height="23" FontSize="12" Foreground="Black"/>
+            <TextBox x:Name="txtRFIDInstallationDate" Height="23" Canvas.Left="116" TextWrapping="Wrap" Canvas.Top="83" Width="120"/>
+            <Label x:Name="lblRFIDInstallationDate" Content="Installation Date" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="83" Height="23" FontSize="12" Foreground="Black"/>
+            <TextBox x:Name="txtRFIDDatabaseID_Copy3" Height="68" Canvas.Left="116" TextWrapping="Wrap" Canvas.Top="111" Width="241"/>
+            <Label x:Name="lblRFIDComments" Content="Comments" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="111" Height="23" FontSize="12" Foreground="Black"/>
+            <TextBox x:Name="txtAssetID" Height="23" Canvas.Left="541" TextWrapping="Wrap" Canvas.Top="27" Width="120" IsReadOnly="True"/>
+            <Label x:Name="lblAssetID" Content="Asset ID" VerticalAlignment="Top" Canvas.Left="435" Canvas.Top="27" Height="23" FontSize="12" Foreground="Black" HorizontalAlignment="Center"/>
+            <TextBox x:Name="txtAssetDescription" Height="23" Canvas.Left="541" TextWrapping="Wrap" Canvas.Top="55" Width="120" IsReadOnly="True"/>
+            <Label x:Name="lblAssetDescription" Content="Description" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="435" Canvas.Top="55" Height="28" FontSize="12" Foreground="Black"/>
+            <TextBox x:Name="txtAssetComments" Height="68" Canvas.Left="541" TextWrapping="Wrap" Canvas.Top="83" Width="241"/>
+            <Label x:Name="lblAssetComments" Content="Comments" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="435" Canvas.Top="83" Height="23" FontSize="12" Foreground="Black"/>
+        </Canvas>
 
 
     </StackPanel>

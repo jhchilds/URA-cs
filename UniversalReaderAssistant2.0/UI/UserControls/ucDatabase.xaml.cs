@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
 using ThingMagic;
 using ThingMagic.URA2.BL;
 
@@ -35,6 +36,7 @@ namespace ThingMagic.URA2
         public void LoadEPC(Reader reader)
         {
             objReader = reader;
+
         }
 
         public void Load(Reader reader, uint address, int length, Gen2.Bank selectedBank, TagReadRecord selectedTagRed)
@@ -45,7 +47,7 @@ namespace ThingMagic.URA2
             dataLength = length;
             selectMemBank = selectedBank;
 
-            spWriteEPC.IsEnabled = true;
+            spDatabase.IsEnabled = true;
             rbSelectedTag.IsChecked = true;
             rbSelectedTag.IsEnabled = true;
 
@@ -90,12 +92,16 @@ namespace ThingMagic.URA2
             txtCurrentEpc.Text = selectedTagRed.EPC;
             currentEpc = txtCurrentEpc.Text;
             antenna = selectedTagRed.Antenna;
+
+            
+
+
         }
 
         /// <summary>
-        /// Reset writeepc tab to default values
+        /// Reset Database tab to default values
         /// </summary>
-        public void ResetWriteEPCTab()
+        public void ResetDatabaseTab()
         {
             if (null != objReader)
             {
@@ -114,7 +120,7 @@ namespace ThingMagic.URA2
         {
             if (null != objReader)
             {
-                ResetWriteEPCTab();
+                ResetDatabaseTab();
             }
         }
 
@@ -363,6 +369,11 @@ namespace ThingMagic.URA2
                 return ant;
             else
                 return null;
+        }
+
+        private void SpDatabase_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
