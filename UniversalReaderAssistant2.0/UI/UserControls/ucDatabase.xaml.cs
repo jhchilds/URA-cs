@@ -28,6 +28,9 @@ namespace ThingMagic.URA2
         int antenna = 0;
         Gen2.Bank selectMemBank;
 
+        RfidTags rfid = new RfidTags();
+        
+
         public ucDatabase()
         {
             InitializeComponent();
@@ -35,6 +38,8 @@ namespace ThingMagic.URA2
 
         public void LoadEPC(Reader reader)
         {
+            DataTable dt = rfid.Select();
+            dgTagResults.DataContext = dt;
             objReader = reader;
 
         }
@@ -370,6 +375,10 @@ namespace ThingMagic.URA2
             else
                 return null;
         }
+
+      
+
+       
 
         private void SpDatabase_Loaded(object sender, RoutedEventArgs e)
         {

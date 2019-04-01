@@ -89,6 +89,7 @@
             <Label x:Name="lblAssetDescription" Content="Description" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="435" Canvas.Top="55" Height="28" FontSize="12" Foreground="Black"/>
             <TextBox x:Name="txtAssetComments" Height="68" Canvas.Left="541" TextWrapping="Wrap" Canvas.Top="83" Width="241"/>
             <Label x:Name="lblAssetComments" Content="Comments" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="435" Canvas.Top="83" Height="23" FontSize="12" Foreground="Black"/>
+            <DataGrid x:Name="dgTagResults" ItemsSource="{Binding}" Height="100" Canvas.Top="216" Width="797"/>
         </Canvas>
 
 

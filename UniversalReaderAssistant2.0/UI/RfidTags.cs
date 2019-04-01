@@ -33,6 +33,15 @@ namespace ThingMagic.URA2
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 conn.Open();
                 adapter.Fill(dt);
+
+                foreach (DataRow dataRow in dt.Rows)
+                {
+                    foreach(var item in dataRow.ItemArray)
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+
             }
             catch (Exception ex)
             {
