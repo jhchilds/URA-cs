@@ -38,8 +38,7 @@ namespace ThingMagic.URA2
 
         public void LoadEPC(Reader reader)
         {
-            DataTable dt = rfid.Select();
-            dgTagResults.DataContext = dt;
+
             objReader = reader;
 
         }
@@ -247,6 +246,12 @@ namespace ThingMagic.URA2
             e.Handled = true;
         }
 
+
+        private void updateDatabaseFields()
+        {
+
+        }
+
         private void btnRead_Click(object sender, RoutedEventArgs e)
         {
             Mouse.SetCursor(Cursors.Wait);
@@ -310,6 +315,10 @@ namespace ThingMagic.URA2
             finally
             {
                 Mouse.SetCursor(Cursors.Arrow);
+
+                ///Put data into proper fields based on current EPC
+                retrieveData();
+
             }
         }
 
@@ -376,7 +385,39 @@ namespace ThingMagic.URA2
                 return null;
         }
 
-      
+        /// <summary>
+        /// Retrieving Data from Data Table and placing in necessary textbox
+        /// </summary>
+        private void retrieveData()
+        {
+            //TESTING DATABASE ACCESS
+            rfid.epcID = txtCurrentEpc.Text;
+            DataTable dt = rfid.Select(rfid);
+            dgTagResults.DataContext = dt;
+           
+            //CLEARING DATA FIELDS
+            txtRFIDDatabaseID.Text = "";
+            txtAssetID.Text = "";
+            txtRFIDManufactureDate.Text = "";
+            txtRFIDInstallationDate.Text = "";
+            txtAssetDescription.Text = "";
+
+
+            Console.WriteLine("TESTING FIELD INPUT FROM DATABASE");
+            ///Putting correct data into data fields
+            ///
+
+
+            foreach (DataRow dataRow in dt.Rows)
+            {
+
+                txtRFIDDatabaseID.Text = dataRow.ItemArray[0].ToString();
+                txtAssetID.Text = dataRow.ItemArray[1].ToString();
+                txtRFIDManufactureDate.Text = dataRow.ItemArray[3].ToString();
+                txtRFIDInstallationDate.Text = dataRow.ItemArray[4].ToString();
+                txtAssetDescription.Text = dataRow.ItemArray[5].ToString();
+            }
+        }
 
        
 

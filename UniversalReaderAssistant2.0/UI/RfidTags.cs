@@ -19,8 +19,12 @@ namespace ThingMagic.URA2
 
         static string myconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
-
-        public DataTable Select()
+        /// <summary>
+        /// Selects all information from Assets and Rfid table basded on the epc recovered from Reader
+        /// </summary>
+        /// <param name="rfid"></param>
+        /// <returns></returns>
+        public DataTable Select(RfidTags rfid)
         {
             ///Database Connection
             SqlConnection conn = new SqlConnection(myconnstrng);
@@ -28,12 +32,18 @@ namespace ThingMagic.URA2
             try
             {
                 //SQL Query to select from database
-                string sql = "SELECT * FROM tbl_rfid";
+                string sql = "SELECT tbl_rfid.databaseID, tbl_asset.assetID, tbl_rfid.epcID, tbl_rfid.rfidManufactureDate, tbl_rfid.rfidInstallationDate, tbl_asset.assetDescription FROM tbl_asset INNER JOIN tbl_rfid ON tbl_asset.assetID = tbl_rfid.assetID WHERE epcID = @epcID";
                 SqlCommand cmd = new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@epcID", rfid.epcID);
+
+               
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 conn.Open();
                 adapter.Fill(dt);
 
+                //Testing datatable fill
                 foreach (DataRow dataRow in dt.Rows)
                 {
                     foreach(var item in dataRow.ItemArray)
