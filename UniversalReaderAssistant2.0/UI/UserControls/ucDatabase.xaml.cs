@@ -403,14 +403,9 @@ namespace ThingMagic.URA2
             txtAssetDescription.Text = "";
 
 
-            Console.WriteLine("TESTING FIELD INPUT FROM DATABASE");
-            ///Putting correct data into data fields
-            ///
-
-
+            //Putting data into datafields.
             foreach (DataRow dataRow in dt.Rows)
             {
-
                 txtRFIDDatabaseID.Text = dataRow.ItemArray[0].ToString();
                 txtAssetID.Text = dataRow.ItemArray[1].ToString();
                 txtRFIDManufactureDate.Text = dataRow.ItemArray[3].ToString();
