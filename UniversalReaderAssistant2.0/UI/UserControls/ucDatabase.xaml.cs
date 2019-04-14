@@ -316,8 +316,7 @@ namespace ThingMagic.URA2
             {
                 Mouse.SetCursor(Cursors.Arrow);
 
-                ///Put data into proper fields based on current EPC
-                retrieveData();
+                
 
             }
         }
@@ -388,7 +387,7 @@ namespace ThingMagic.URA2
         /// <summary>
         /// Retrieving Data from Data Table and placing in necessary textbox
         /// </summary>
-        private void retrieveData()
+        private bool retrieveData()
         {
             //TESTING DATABASE ACCESS
             rfid.epcID = txtCurrentEpc.Text;
@@ -411,7 +410,16 @@ namespace ThingMagic.URA2
                 txtRFIDManufactureDate.Text = dataRow.ItemArray[3].ToString();
                 txtRFIDInstallationDate.Text = dataRow.ItemArray[4].ToString();
                 txtAssetDescription.Text = dataRow.ItemArray[5].ToString();
+                txtRFIDComments.Text = dataRow.ItemArray[6].ToString();
+                txtAssetComments.Text = dataRow.ItemArray[7].ToString();
             }
+
+            if(txtRFIDDatabaseID.Text == "")
+            {
+                return false;
+            }
+
+            return true;
         }
 
        
@@ -419,6 +427,16 @@ namespace ThingMagic.URA2
         private void SpDatabase_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void BtnRetrieveData_Click(object sender, RoutedEventArgs e)
+        {
+            ///Put data into proper fields based on current EPC
+            if (!retrieveData())
+            {
+                MessageBox.Show("Tag not found in database", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
         }
     }
 }
