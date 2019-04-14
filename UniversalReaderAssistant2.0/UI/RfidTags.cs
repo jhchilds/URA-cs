@@ -16,7 +16,7 @@ namespace ThingMagic.URA2
         public string rfidManufactureDate { get; set; }
         public string rfidInstallationDate { get; set; }
         public int rfidAssetID { get; set; }
-        public int rfidComments { get; set; }
+        public string rfidComments { get; set; }
 
         static string myconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 

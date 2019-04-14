@@ -55,6 +55,9 @@ namespace ThingMagic.URA2
             rbSelectedTag.IsChecked = true;
             rbSelectedTag.IsEnabled = true;
 
+            //Clear Leftover Data
+            Clear();
+
             string[] stringData = selectedTagRed.Data.Split(' ');
             txtEpc.Text = selectedTagRed.EPC;
             txtData.Text = string.Join("", stringData);
@@ -393,14 +396,9 @@ namespace ThingMagic.URA2
             rfid.epcID = txtCurrentEpc.Text;
             DataTable dt = rfid.Select(rfid);
             dgTagResults.DataContext = dt;
-           
-            //CLEARING DATA FIELDS
-            txtRFIDDatabaseID.Text = "";
-            txtAssetID.Text = "";
-            txtRFIDManufactureDate.Text = "";
-            txtRFIDInstallationDate.Text = "";
-            txtAssetDescription.Text = "";
 
+            //Clear Leftover Data
+            Clear();
 
             //Putting data into datafields.
             foreach (DataRow dataRow in dt.Rows)
@@ -422,13 +420,26 @@ namespace ThingMagic.URA2
             return true;
         }
 
+        public void Clear()
+        {
+            //CLEARING DATA FIELDS
+            txtRFIDDatabaseID.Text = "";
+            txtAssetID.Text = "";
+            txtRFIDManufactureDate.Text = "";
+            txtRFIDInstallationDate.Text = "";
+            txtAssetDescription.Text = "";
+            txtRFIDComments.Text = "";
+            txtAssetComments.Text = "";
+
+        }
+
        
 
         private void SpDatabase_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
-
+        
         private void BtnRetrieveData_Click(object sender, RoutedEventArgs e)
         {
             ///Put data into proper fields based on current EPC
@@ -437,6 +448,46 @@ namespace ThingMagic.URA2
                 MessageBox.Show("Tag not found in database", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
+        }
+
+        private void BtnRFIDInsert_Click(object sender, RoutedEventArgs e)
+        {
+            //Get the value from input fields 
+            try
+            {
+                rfid.epcID = txtCurrentEpc.Text; //Text box has type String 
+                rfid.rfidManufactureDate = txtRFIDManufactureDate.Text;
+                rfid.rfidInstallationDate = txtRFIDInstallationDate.Text;
+                rfid.rfidAssetID = int.Parse(txtAssetID.Text);
+                rfid.rfidComments = txtRFIDComments.Text;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Incorrect format in data fields.");
+
+            }
+
+
+
+            //Insert Data into database
+            bool success = rfid.Insert(rfid);
+            if (success)
+            {
+                //Successfully Inserted
+                MessageBox.Show("New Tag Inserted Successfully");
+                //Clear the text boxes
+                //Clear();
+            }
+            else
+            {
+                //FAILED Insertion
+                MessageBox.Show("Failed to add new Tag. Try Again.");
+            }
+            //Load Data in Data Grid View
+            DataTable dt = rfid.Select(rfid);
+            dgTagResults.DataContext = dt;
+
         }
     }
 }
