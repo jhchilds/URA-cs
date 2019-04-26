@@ -56,7 +56,8 @@ namespace ThingMagic.URA2
             rbSelectedTag.IsEnabled = true;
 
             //Clear Leftover Data
-            Clear();
+            ClearRFID();
+            ClearAsset();
 
             string[] stringData = selectedTagRed.Data.Split(' ');
             txtEpc.Text = selectedTagRed.EPC;
@@ -398,18 +399,21 @@ namespace ThingMagic.URA2
             dgTagResults.DataContext = dt;
 
             //Clear Leftover Data
-            Clear();
+            ClearRFID();
+            ClearAsset();
 
             //Putting data into datafields.
             foreach (DataRow dataRow in dt.Rows)
             {
                 txtRFIDDatabaseID.Text = dataRow.ItemArray[0].ToString();
                 txtAssetID.Text = dataRow.ItemArray[1].ToString();
+                txtAssetIDAsset.Text = dataRow.ItemArray[1].ToString(); //FOR ASSET DATA
                 txtRFIDManufactureDate.Text = dataRow.ItemArray[3].ToString();
                 txtRFIDInstallationDate.Text = dataRow.ItemArray[4].ToString();
                 txtAssetDescription.Text = dataRow.ItemArray[5].ToString();
                 txtRFIDComments.Text = dataRow.ItemArray[6].ToString();
                 txtAssetComments.Text = dataRow.ItemArray[7].ToString();
+
             }
 
             if(txtRFIDDatabaseID.Text == "")
@@ -420,16 +424,30 @@ namespace ThingMagic.URA2
             return true;
         }
 
-        public void Clear()
+        /// <summary>
+        /// Clearing RFID DATA textboxes
+        /// </summary>
+        public void ClearRFID()
         {
             //CLEARING DATA FIELDS
             txtRFIDDatabaseID.Text = "";
             txtAssetID.Text = "";
             txtRFIDManufactureDate.Text = "";
             txtRFIDInstallationDate.Text = "";
-            txtAssetDescription.Text = "";
+            
             txtRFIDComments.Text = "";
+            
+            
+
+        }
+        /// <summary>
+        /// Clearing Asset Data textboxes
+        /// </summary>
+        public void ClearAsset()
+        {
             txtAssetComments.Text = "";
+            txtAssetIDAsset.Text = ""; //Asset Data AssetID
+            txtAssetDescription.Text = "";
 
         }
 
@@ -476,8 +494,7 @@ namespace ThingMagic.URA2
             {
                 //Successfully Inserted
                 MessageBox.Show("New Tag Inserted Successfully");
-                //Clear the text boxes
-                //Clear();
+                
             }
             else
             {
@@ -488,6 +505,100 @@ namespace ThingMagic.URA2
             DataTable dt = rfid.Select(rfid);
             dgTagResults.DataContext = dt;
 
+        }
+        /// <summary>
+        /// Update RFID Tag selected 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnRFIDUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                //Retrieve Data from the Fields
+                rfid.databaseID = int.Parse(txtRFIDDatabaseID.Text);
+                rfid.epcID = txtCurrentEpc.Text;
+                rfid.rfidManufactureDate = txtRFIDManufactureDate.Text;
+                rfid.rfidInstallationDate = txtRFIDInstallationDate.Text;
+                rfid.rfidAssetID = int.Parse(txtAssetID.Text);
+                rfid.rfidComments = txtRFIDComments.Text;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Incorrect format in data fields.");
+            }
+
+
+            //Update Data in Database
+            bool success = rfid.Update(rfid);
+            if (success)
+            {
+                //Load Data in Data Grid View
+                DataTable dt = rfid.Select(rfid);
+                dgTagResults.DataContext = dt;
+                //Update was successful
+                MessageBox.Show("Tag has been updated successfully");
+
+            }
+            else
+            {
+                //Update failed
+                MessageBox.Show("Failed to update tag.");
+
+            }
+
+        }
+        /// <summary>
+        /// Clear textboxes from the RFID Data panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnRFIDClear_Click(object sender, RoutedEventArgs e)
+        {
+            //Clear Leftover Data
+            ClearRFID();
+            
+        }
+        /// <summary> 
+        /// Delete an RFID Tag from the Database 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnRFIDDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Retrieve data from Fields
+                rfid.databaseID = int.Parse(txtRFIDDatabaseID.Text);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Data fields not in correct format.");
+
+            }
+            bool success = rfid.Delete(rfid);
+            if (success)
+            {
+
+                //Load Data in Data Grid View
+                DataTable dt = rfid.Select(rfid);
+                dgTagResults.DataContext = dt;
+                //Successful Deletion
+                MessageBox.Show("Tag has been deleted successfully");
+                ClearRFID();
+                ClearAsset();
+
+
+            }
+            else
+            {
+                //Failed Deletion
+                MessageBox.Show("Failed deletion. Try again.");
+
+            }
         }
     }
 }
