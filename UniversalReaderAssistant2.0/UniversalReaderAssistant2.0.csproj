@@ -147,6 +147,7 @@
     <Compile Include="BL\TagResults.cs" />
     <Compile Include="Converter\DeviceTypeCheckConverter.cs" />
     <Compile Include="Models\ReaderConnectionDetail.cs" />
+    <Compile Include="UI\Assets.cs" />
     <Compile Include="UI\RfidTags.cs" />
     <Compile Include="UI\ConnectionWizard.xaml.cs">
       <DependentUpon>ConnectionWizard.xaml</DependentUpon>

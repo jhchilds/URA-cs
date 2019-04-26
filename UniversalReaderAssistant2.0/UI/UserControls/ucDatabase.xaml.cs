@@ -27,9 +27,11 @@ namespace ThingMagic.URA2
         int dataLength = 0;
         int antenna = 0;
         Gen2.Bank selectMemBank;
-
+        /// <summary>
+        /// Instances of asset and rfid objects
+        /// </summary>
         RfidTags rfid = new RfidTags();
-        
+        Assets asset = new Assets();
 
         public ucDatabase()
         {
@@ -468,6 +470,9 @@ namespace ThingMagic.URA2
             }
         }
 
+        //***********************RFID Data Panel**********************************
+
+
         private void BtnRFIDInsert_Click(object sender, RoutedEventArgs e)
         {
             //Get the value from input fields 
@@ -586,6 +591,131 @@ namespace ThingMagic.URA2
                 //Load Data in Data Grid View
                 DataTable dt = rfid.Select(rfid);
                 dgTagResults.DataContext = dt;
+                //Successful Deletion
+                MessageBox.Show("Tag has been deleted successfully");
+                ClearRFID();
+                ClearAsset();
+
+
+            }
+            else
+            {
+                //Failed Deletion
+                MessageBox.Show("Failed deletion. Try again.");
+
+            }
+        }
+
+        //***********************Asset Data Panel**********************************
+
+        private void BtnAssetInsert_Click(object sender, RoutedEventArgs e)
+        {
+
+            //Get the value from input fields 
+            try
+            {
+                
+                asset.assetDescription = txtAssetDescription.Text; //Text box has type String 
+                asset.assetComments = txtAssetComments.Text;
+             
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Incorrect format in data fields.");
+
+            }
+
+
+
+            //Insert Data into database
+            bool success = asset.Insert(asset);
+            if (success)
+            {
+                //Successfully Inserted
+                MessageBox.Show("New Asset Inserted Successfully into Database");
+
+            }
+            else
+            {
+                //FAILED Insertion
+                MessageBox.Show("Failed to add new Asset to database.");
+            }
+            //Load Data in Data Grid View
+            //DataTable dt = asset.Select(asset); //Uncomment only if need to select asset info individually, not joined with a tag
+            //dgTagResults.DataContext = dt;
+
+        }
+        /// <summary>
+        /// Update Assets Data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnAssetUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Retrieve Data from the Fields
+                asset.assetAssetID = int.Parse(txtAssetID.Text);
+                asset.assetDescription = txtAssetDescription.Text;
+                asset.assetComments = txtAssetComments.Text;
+               
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Incorrect format in data fields.");
+            }
+
+
+            //Update Data in Database
+            bool success = asset.Update(asset);
+            if (success)
+            {
+                //Load Data in Data Grid View
+                DataTable dt = rfid.Select(rfid);
+                dgTagResults.DataContext = dt;
+                //Update was successful
+                MessageBox.Show("Asset has been updated successfully in Database");
+
+            }
+            else
+            {
+                //Update failed
+                MessageBox.Show("Failed to update Asset.");
+
+            }
+        }
+        /// <summary>
+        /// Clear the textboxes in Asset Data Panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnAssetClear_Click(object sender, RoutedEventArgs e)
+        {
+            ClearAsset();
+        }
+
+        private void BtnAssetDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Retrieve data from Fields
+                asset.assetAssetID = int.Parse(txtAssetID.Text);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Data fields not in correct format.");
+
+            }
+            bool success = asset.Delete(asset);
+            if (success)
+            {
+
+                //Load Data in Data Grid View
+                //DataTable dt = asset.Select(asset);
+                //dgTagResults.DataContext = dt; //Uncomment if need to display Asset seperately from RFID, Currently Joined
                 //Successful Deletion
                 MessageBox.Show("Tag has been deleted successfully");
                 ClearRFID();

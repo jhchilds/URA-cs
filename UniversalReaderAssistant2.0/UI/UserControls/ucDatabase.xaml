@@ -72,10 +72,10 @@
             <Button x:Name="btnRFIDClear" Content="Clear" Canvas.Left="224" Canvas.Top="223" Width="62" FontWeight="Bold" Foreground="Black" Click="BtnRFIDClear_Click"/>
             <Button x:Name="btnRFIDInsert" Content="Insert" Height="23" Canvas.Left="96" Canvas.Top="223" Width="58" FontWeight="Bold" Foreground="Black" Click="BtnRFIDInsert_Click"/>
             <Button x:Name="btnRFIDDelete" Content="Delete" Canvas.Left="291" Canvas.Top="223" Width="66" FontWeight="Bold" Foreground="Black" Click="BtnRFIDDelete_Click"/>
-            <Button x:Name="btnAssetUpdate" Content="Update" Canvas.Left="584" Canvas.Top="223" Width="60" Height="23" FontWeight="Bold" Foreground="Black"/>
-            <Button x:Name="btnAssetClear" Content="Clear" Canvas.Left="649" Canvas.Top="223" Width="62" FontWeight="Bold" Foreground="Black"/>
-            <Button x:Name="btnAssetInsert" Content="Insert" Height="23" Canvas.Left="521" Canvas.Top="223" Width="58" FontWeight="Bold" Foreground="Black"/>
-            <Button x:Name="btnAssetDelete" Content="Delete" Canvas.Left="716" Canvas.Top="223" Width="66" FontWeight="Bold" Foreground="Black"/>
+            <Button x:Name="btnAssetUpdate" Content="Update" Canvas.Left="584" Canvas.Top="223" Width="60" Height="23" FontWeight="Bold" Foreground="Black" Click="BtnAssetUpdate_Click"/>
+            <Button x:Name="btnAssetClear" Content="Clear" Canvas.Left="649" Canvas.Top="223" Width="62" FontWeight="Bold" Foreground="Black" Click="BtnAssetClear_Click"/>
+            <Button x:Name="btnAssetInsert" Content="Insert" Height="23" Canvas.Left="521" Canvas.Top="223" Width="58" FontWeight="Bold" Foreground="Black" Click="BtnAssetInsert_Click"/>
+            <Button x:Name="btnAssetDelete" Content="Delete" Canvas.Left="716" Canvas.Top="223" Width="66" FontWeight="Bold" Foreground="Black" Click="BtnAssetDelete_Click"/>
             <TextBox x:Name="txtRFIDDatabaseID" Height="23" Canvas.Left="116" TextWrapping="Wrap" Canvas.Top="27" Width="120" IsReadOnly="True"/>
             <Label x:Name="lblRFIDDatabaseID" Content="Database ID" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="27" Height="23" FontSize="12" Foreground="Black" HorizontalAlignment="Center"/>
             <TextBox x:Name="txtRFIDManufactureDate" Height="23" Canvas.Left="116" TextWrapping="Wrap" Canvas.Top="55" Width="120"/>
