@@ -2254,6 +2254,7 @@ namespace ThingMagic.URA2
         ///<param name="e"></param>        
         private void saveData_Click(object sender, RoutedEventArgs e)
         {
+            // Define name of CSV File
             string strDestinationFile = string.Empty;
             try
             {

@@ -333,7 +333,7 @@
                     <TabItem Name="tiAuthenticate" Background="Aqua" GotFocus ="tiAuthenticate_GotFocus">
                         <TabItem.Header>
                             <TextBlock Text="Authenticate" Margin="2">
-                               <TextBlock.ToolTip>
+                                <TextBlock.ToolTip>
                                     <StackPanel>
                                         <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Authenticate (TabItem)</TextBlock>
                                         <TextBlock>The “Authenticate” Tab is used to both insert and activate keys, as well as<LineBreak /> authenticate tags and obtain encrypted data using those keys.</TextBlock>
@@ -343,7 +343,7 @@
                                             <TextBlock FontStyle="Italic">Press F1 for more help</TextBlock>
                                         </WrapPanel>
                                     </StackPanel>
-                               </TextBlock.ToolTip>
+                                </TextBlock.ToolTip>
                             </TextBlock>
                         </TabItem.Header>
                         <Grid Background="#E2EEFA">
@@ -396,12 +396,12 @@
                                 <Image Name="pane1PinImage" Source="..\Icons\pinHorizontal.gif"/>
                             </Button>
                             <TextBlock  Padding="8" FontWeight="Bold" TextTrimming="CharacterEllipsis" Foreground="{StaticResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" DockPanel.Dock="Left">
-                            <TextBlock.Background>
-                                <LinearGradientBrush>
+                                <TextBlock.Background>
+                                    <LinearGradientBrush>
                                         <GradientStop Color="#DCE0E8" Offset="0"/>
                                         <GradientStop Color="#D9DDE7" Offset="1"/>
-                                </LinearGradientBrush>                                
-                            </TextBlock.Background>                            
+                                    </LinearGradientBrush>
+                                </TextBlock.Background>                            
                             <StackPanel Orientation="Horizontal">
                                     <Image Source="..\Icons\Settings.png" Stretch="None" />
                                     <TextBlock FontSize="14" FontFamily="Segoe UI" Margin="5,0,0,0">Settings/Status</TextBlock>
@@ -615,7 +615,7 @@
                                                                             <RadioButton.ToolTip>
                                                                                 Dynamically switches through antennas. Goes to next antenna when no more tags found with current.
                                                                             </RadioButton.ToolTip>
-                                                                        </RadioButton>                                                                        
+                                                                        </RadioButton>
                                                                     </StackPanel>
                                                                 </GroupBox>
                                                             </StackPanel>
@@ -747,7 +747,7 @@
                                                             <CheckBox Content="ATA" Name="ataCheckBox" Margin="2" Checked="ataCheckBox_CheckedChanged" Unchecked="ataCheckBox_CheckedChanged"/>
                                                         </StackPanel>
                                                     </StackPanel>
-                                                </GroupBox>                                                
+                                                </GroupBox>
                                                 <GroupBox Header="Embedded ReadData" Name="ReadDataGroupBox" BorderThickness="1" BorderBrush="Black">
                                                     <StackPanel Name="stackPanel17">
                                                         <CheckBox Unchecked="chkEmbeddedReadData_Unchecked" Content="Enable" Margin="2" Name="chkEmbeddedReadData"  ToolTipService.ShowOnDisabled="True" ToolTip="Add an embedded ReadData TagOp to Inventory"/>
@@ -878,23 +878,23 @@
                                     <Expander Name="expdrPerformanceTuning" BorderBrush="Black" BorderThickness="1" Expanded="expdrPerformanceTuning_Expanded">
                                         <Expander.Header>
                                             <TextBlock Text="Performance Tuning" Margin="5">
-                                            <TextBlock.ToolTip>
-                                                <StackPanel>
-                                                    <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Performance Tuning</TextBlock>
-                                                    <TextBlock>
+                                                <TextBlock.ToolTip>
+                                                    <StackPanel>
+                                                        <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Performance Tuning</TextBlock>
+                                                        <TextBlock>
                                                         This section provides a set of options,
                                                         <LineBreak />
                                                         based on high-level usecase characteristics, 
                                                         <LineBreak />
                                                         allowing the reader performance to be optimized.
-                                                    </TextBlock>
-                                                    <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
-                                                    <WrapPanel>
-                                                        <!--<Image Source="/WpfTutorialSamples;component/Images/help.png" Margin="0,0,5,0" />-->
-                                                        <TextBlock FontStyle="Italic">Press F1 for more help</TextBlock>
-                                                    </WrapPanel>
-                                                </StackPanel>
-                                            </TextBlock.ToolTip>
+                                                        </TextBlock>
+                                                        <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
+                                                        <WrapPanel>
+                                                            <!--<Image Source="/WpfTutorialSamples;component/Images/help.png" Margin="0,0,5,0" />-->
+                                                            <TextBlock FontStyle="Italic">Press F1 for more help</TextBlock>
+                                                        </WrapPanel>
+                                                    </StackPanel>
+                                                </TextBlock.ToolTip>
                                         </TextBlock>
                                         </Expander.Header>
                                         <Expander.Background>
