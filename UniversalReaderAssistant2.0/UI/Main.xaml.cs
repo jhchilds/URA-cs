@@ -253,6 +253,15 @@ namespace ThingMagic.URA2
         // Added to check if Reader Fails to reconnect back
         private bool isReconnectFailed = false;
 
+        /// <summary>
+        /// AutoSave Timer Definition
+        /// </summary>
+
+        private static System.Timers.Timer autoSaveTimer;
+
+
+
+
         // License Upgrade Fields
         BackgroundWorker bgwLicenseUpgrade = new BackgroundWorker();
         string LicenseStatus = "";
@@ -4763,9 +4772,24 @@ namespace ThingMagic.URA2
 
                     // Clear previous messages on status bar
                     ClearMessageOnStatusBar();
+
+                    //Create directory for AutoSave Snapshots
+                    string autoSaveDir = @"C:\Users\Joshua Childs\Desktop\URA_AutoSave";
+
+                    if (!Directory.Exists(autoSaveDir))
+                    {
+                        Directory.CreateDirectory(autoSaveDir);
+                    }
+
+
+                    //Start timer for AutoSave
+                    SetAutoSaveTimer();
+                    Console.ReadLine(); //Testing only
+
+
                 }
 
-                    // Call when stop reading button is pressed
+                // Call when stop reading button is pressed
                 else if (btnRead.Content.ToString() == "Stop Reading")
                 {
                     OnStopReadsClick();
@@ -4876,6 +4900,19 @@ namespace ThingMagic.URA2
                         tagdb.Repaint();
                     }));
                 }
+
+                // StopAutoSave Timer when tag reading stops
+                if (autoSaveTimer.Enabled)
+                {
+                    autoSaveTimer.Stop();
+                    autoSaveTimer.Dispose();
+
+                    Console.WriteLine("Terminating the application...");
+                }
+                
+
+
+
             }
             finally
             {
@@ -14396,5 +14433,147 @@ namespace ThingMagic.URA2
             isoUcodeCheckbox.IsEnabled = false;
             TagResults.dgTagResults.UnselectAll();
         }
+
+        /// <summary>
+        /// Setting the AutoSave Timer which is called within OnStartRead()
+        /// </summary>
+        private void SetAutoSaveTimer()
+        {
+            
+            // Create a timer with a two second interval.
+            autoSaveTimer = new System.Timers.Timer(5000);
+            // Hook up the Elapsed event for the timer. 
+            autoSaveTimer.Elapsed += OnAutoSaveTimedEvent;
+            autoSaveTimer.AutoReset = true;
+            autoSaveTimer.Enabled = true;
+        }
+
+        /// <summary>
+        /// Write to a CSV the current tags within the tag grid. Timed event triggered in SetAutoSaveTimer()
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void OnAutoSaveTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            string path = @"C:\Users\Joshua Childs\Desktop\URA_AutoSave\SnapShot_"
+                                            + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")+".csv";
+            this.Dispatcher.Invoke(new ThreadStart(delegate ()
+            {
+                autoSaveTagData(path);
+
+            }));
+           
+            // Create a file to write to.
+            //using (StreamWriter sw = File.CreateText(path))
+            //{
+            //    sw.WriteLine("Hello {0:HH:mm:ss.fff}", e.SignalTime);  
+            //}
+
+        }
+
+
+        private void autoSaveTagData(String path)
+        {
+            // Define name of CSV File
+            string strDestinationFile = string.Empty;
+            try
+            {
+                if (null != tcTagResults.SelectedItem)
+                {
+                    
+                    string tabHeader = ((TextBlock)((TabItem)tcTagResults.SelectedItem).Header).Text;
+                    if (tabHeader.Equals("Tag Results"))
+                    {
+                        strDestinationFile = path;
+                        
+                        TagReadRecord rda;
+                        // True, if any row is selected and only selected row is saved else 
+                        // false and entire data grid is saved
+                        bool flagSelectiveDataSave = false;
+                        for (int rowCount = 0; rowCount <= TagResults.dgTagResults.Items.Count - 1; rowCount++)
+                        {
+                            rda = (TagReadRecord)TagResults.dgTagResults.Items.GetItemAt(rowCount);
+                            if (rda.Checked)
+                            {
+                                flagSelectiveDataSave = true;
+                                break;
+                            }
+                        }
+                        TextWriter tw = new StreamWriter(strDestinationFile);
+                        StringBuilder sb = new StringBuilder();
+                        //writing the header
+                        int columnCount = TagResults.dgTagResults.Columns.Count;
+
+                        for (int count = 1; count < columnCount; count++)
+                        {
+                            string colHeader = TagResults.dgTagResults.Columns[count].Header.ToString();
+                            if ((colHeader == "EPC(ASCII)") || (colHeader == "EPC(ReverseBase36)"))
+                            {
+                                //Adding column header based on selection of Display options section
+                                if (-1 != colHeader.IndexOf(cbxDisplayEPCAs.Text))
+                                {
+                                    sb.Append(colHeader + ", ");
+                                }
+                            }
+                            else if (colHeader == "Data(ASCII)")// || (colHeader == "Data(ReverseBase36)"))
+                            {
+                                //Adding column header based on selection of Display options section
+                                if (-1 != colHeader.IndexOf(cbxDisplayEmbRdDataAs.Text))
+                                {
+                                    sb.Append(colHeader + ", ");
+                                }
+                            }
+                            else
+                            {
+                                if (count == columnCount - 1)
+                                {
+                                    sb.Append(colHeader);
+                                }
+                                else
+                                {
+
+                                    sb.Append(colHeader + ", ");
+                                }
+                            }
+                        }
+                        tw.WriteLine(sb.ToString());
+                        if (flagSelectiveDataSave)
+                        {
+                            //writing the data
+                            rda = null;
+                            for (int rowCount = 0; rowCount <= TagResults.dgTagResults.Items.Count - 1; rowCount++)
+                            {
+                                rda = (TagReadRecord)TagResults.dgTagResults.Items.GetItemAt(rowCount);
+                                if (rda.Checked)
+                                {
+                                    textWrite(tw, rda, rowCount + 1);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            //writing the data
+                            rda = null;
+                            for (int rowCount = 0; rowCount <= TagResults.dgTagResults.Items.Count - 1; rowCount++)
+                            {
+                                rda = (TagReadRecord)TagResults.dgTagResults.Items.GetItemAt(rowCount);
+                                textWrite(tw, rda, rowCount + 1);
+                            }
+                        }
+                        tw.Close();
+                        
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        
+
     }
 }
