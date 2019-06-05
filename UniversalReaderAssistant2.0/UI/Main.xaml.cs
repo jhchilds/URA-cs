@@ -256,10 +256,12 @@ namespace ThingMagic.URA2
         /// <summary>
         /// AutoSave Timer Definition
         /// </summary>
-
         private static System.Timers.Timer autoSaveTimer;
 
-
+        /// <summary>
+        /// AutoSave Enabled Boolean
+        /// </summary>
+        private bool isAutoSaveEnabled = false;
 
 
         // License Upgrade Fields
@@ -2549,7 +2551,10 @@ namespace ThingMagic.URA2
                         txbGPI.Visibility = Visibility.Visible;
                         gridDataExtensions.IsEnabled = true;
                         grpbxDataExtensions.IsEnabled = true;
-                        chkDataExtensions.IsEnabled = true; 
+                        chkDataExtensions.IsEnabled = true;
+                        chkAutoSave.IsEnabled = true;
+                        grpbxAutoSave.IsEnabled = true;
+                        gridAutoSave.IsEnabled = true;
                         configureGPIOS();                                               
                     }
                 }
@@ -2570,6 +2575,7 @@ namespace ThingMagic.URA2
                         regioncombo.ItemsSource = null;
                         btnConnect.IsEnabled = true;
                         chkDataExtensions.IsChecked = false;
+                        chkAutoSave.IsChecked = false;
                         if (!(objReader is SerialReader))
                         {
                             cbxBaudRate.IsEnabled = false;
@@ -2649,6 +2655,7 @@ namespace ThingMagic.URA2
                         gridPerformanceTuning.IsEnabled = false;
                         gridReadOptions.IsEnabled = false;
                         gridDataExtensions.IsEnabled = false;
+                        gridAutoSave.IsEnabled = false;
                         gridRegulatoryTesting.IsEnabled = false;
                         regioncombo.IsEnabled = false;
                         gridDisplayOptions.IsEnabled = false;
@@ -2889,6 +2896,7 @@ namespace ThingMagic.URA2
                 regioncombo.IsEnabled = true;
                 gridDisplayOptions.IsEnabled = true;
                 gridDataExtensions.IsEnabled = true;
+                gridAutoSave.IsEnabled = true;
                 gridPerformanceTuning.IsEnabled = true;
 
                 //Setting to global power on connect
@@ -4329,6 +4337,7 @@ namespace ThingMagic.URA2
             tiLockTag.IsEnabled = option;
             // Disable all the controls inside data extensions
             grpbxDataExtensions.IsEnabled = option;
+            grpbxAutoSave.IsEnabled = option;
         }
 
         /// <summary>
@@ -4773,18 +4782,15 @@ namespace ThingMagic.URA2
                     // Clear previous messages on status bar
                     ClearMessageOnStatusBar();
 
-                    //Create directory for AutoSave Snapshots
-                    string autoSaveDir = @"C:\Users\Joshua Childs\Desktop\URA_AutoSave";
+                    //If isAutoSaveEnabled is true than start autosave timer
 
-                    if (!Directory.Exists(autoSaveDir))
+                    if (isAutoSaveEnabled)
                     {
-                        Directory.CreateDirectory(autoSaveDir);
+                        startAutoSave();
+
                     }
 
 
-                    //Start timer for AutoSave
-                    SetAutoSaveTimer();
-                    Console.ReadLine(); //Testing only
 
 
                 }
@@ -5025,6 +5031,7 @@ namespace ThingMagic.URA2
             stackPanelFirmwareUpdate.IsEnabled = value;
             // Diable all the controls in data extensions 
             grpbxDataExtensions.IsEnabled = value;
+            grpbxAutoSave.IsEnabled = value;
             gridRegulatoryTesting.IsEnabled = value;
         }
 
@@ -14572,8 +14579,54 @@ namespace ThingMagic.URA2
             }
         }
 
+        /// <summary>
+        /// Auto Save Check Box to Enable
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkAutoSave_Checked(object sender, RoutedEventArgs e)
+        {
 
-        
+            isAutoSaveEnabled = true;
 
+            
+
+        }
+        /// <summary>
+        /// AutoSave Checkbox to disable
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkAutoSave_UnChecked(object sender, RoutedEventArgs e)
+        {
+            isAutoSaveEnabled = false;
+
+        }
+
+        private void expdrAutoSave_Expanded(object sender, RoutedEventArgs e)
+        {
+            // Return the offset vector for the TextBlock object.
+            Vector vector = VisualTreeHelper.GetOffset(((UIElement)sender));
+
+            // Convert the vector to a point value.
+            Point currentPoint = new Point(vector.X, vector.Y);
+            settingsScrollviewer.ScrollToVerticalOffset(vector.Y);
+        }
+
+        private void startAutoSave()
+        {
+            //Create directory for AutoSave Snapshots
+            string autoSaveDir = @"C:\Users\Joshua Childs\Desktop\URA_AutoSave";
+
+            if (!Directory.Exists(autoSaveDir))
+            {
+                Directory.CreateDirectory(autoSaveDir);
+            }
+
+
+            //Start timer for AutoSave
+            SetAutoSaveTimer();
+            Console.ReadLine(); //Testing only
+        }
     }
 }
