@@ -14448,7 +14448,7 @@ namespace ThingMagic.URA2
         {
             
             // Create a timer with a two second interval.
-            autoSaveTimer = new System.Timers.Timer(5000);
+            autoSaveTimer = new System.Timers.Timer(int.Parse(txtAutoSaveInterval.Text)*1000);
             // Hook up the Elapsed event for the timer. 
             autoSaveTimer.Elapsed += OnAutoSaveTimedEvent;
             autoSaveTimer.AutoReset = true;
@@ -14462,20 +14462,19 @@ namespace ThingMagic.URA2
         /// <param name="e"></param>
         private void OnAutoSaveTimedEvent(Object source, ElapsedEventArgs e)
         {
-            string path = @"C:\Users\Joshua Childs\Desktop\URA_AutoSave\SnapShot_"
-                                            + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")+".csv";
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            string autoSaveDir = desktopPath + "\\URA_AutoSave\\SnapShot_"
+                                            + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".csv";
+
+            
             this.Dispatcher.Invoke(new ThreadStart(delegate ()
             {
-                autoSaveTagData(path);
+                autoSaveTagData(autoSaveDir);
 
             }));
            
-            // Create a file to write to.
-            //using (StreamWriter sw = File.CreateText(path))
-            //{
-            //    sw.WriteLine("Hello {0:HH:mm:ss.fff}", e.SignalTime);  
-            //}
-
+          
         }
 
 
@@ -14588,6 +14587,7 @@ namespace ThingMagic.URA2
         {
 
             isAutoSaveEnabled = true;
+            stckpanelAutoSaveInterval.IsEnabled = true;
 
             
 
@@ -14600,6 +14600,8 @@ namespace ThingMagic.URA2
         private void chkAutoSave_UnChecked(object sender, RoutedEventArgs e)
         {
             isAutoSaveEnabled = false;
+            stckpanelAutoSaveInterval.IsEnabled = false;
+
 
         }
 
@@ -14616,7 +14618,9 @@ namespace ThingMagic.URA2
         private void startAutoSave()
         {
             //Create directory for AutoSave Snapshots
-            string autoSaveDir = @"C:\Users\Joshua Childs\Desktop\URA_AutoSave";
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            string autoSaveDir = desktopPath + "\\URA_AutoSave";
 
             if (!Directory.Exists(autoSaveDir))
             {
@@ -14627,6 +14631,65 @@ namespace ThingMagic.URA2
             //Start timer for AutoSave
             SetAutoSaveTimer();
             Console.ReadLine(); //Testing only
+        }
+
+        /// <summary>
+        /// Function to check if User Defined AutoSave Timer interval is empty
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtAutoSaveInterval_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+
+            if (txtAutoSaveInterval.Text == "")
+            {
+                MessageBox.Show("AutoSave Time Interval can't be empty. (default is 5 seconds)", "Universal Reader Assistant Message", MessageBoxButton.OK, MessageBoxImage.Error);
+                txtAutoSaveInterval.Text = "5";
+            }
+
+        }
+        /// <summary>
+        /// Making sure the user can only enter numeric characters.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtAutoSaveInterval_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !Utilities.AreAllValidNumericChars(e.Text);
+            base.OnPreviewTextInput(e);
+        }
+
+        /// <summary>
+        /// Validating usr input for AutoSave Time Interval
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtAutoSaveInterval_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            try
+            {
+                if (txtAutoSaveInterval.Text != "")
+                {
+                    if (Convert.ToInt32(txtAutoSaveInterval.Text) > 60 || Convert.ToInt32(txtAutoSaveInterval.Text) == 0)
+                    {
+                        MessageBox.Show("Please input AutoSave Snapshot Time Interval value greater than 0 and less than or equal to 60 seconds",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        txtAutoSaveInterval.Text = "5";
+                        return;
+                    }
+                    if (Convert.ToInt32(txtRFOnTimeout.Text) < 0)
+                    {
+                        txtAutoSaveInterval.Foreground = Brushes.Red;
+                    }
+                    else
+                    {
+                        txtAutoSaveInterval.Foreground = Brushes.Black;
+                    }
+                }
+            }
+            catch { }
+
         }
     }
 }

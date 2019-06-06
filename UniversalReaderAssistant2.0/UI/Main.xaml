@@ -1694,10 +1694,17 @@
                                             <StackPanel Margin="2" Orientation="Vertical" Name="stckPnlAutoSave" Height="Auto">
                                                 <GroupBox Header="AutoSave" Name="grpbxAutoSave" VerticalAlignment="Top" BorderThickness="1" BorderBrush="Black" Height="Auto">
                                                     <StackPanel Height="Auto" Name="stckpnlAutoSaveGrp" Width="Auto" Orientation="Vertical">
-                                                        <CheckBox ToolTip="Enable AutoSave" ToolTipService.ShowOnDisabled="True" Content="EnableAutoSave" Height="16" HorizontalAlignment="Left" Margin="6,6,0,0" Name="chkAutoSave" VerticalAlignment="Top" Checked="chkAutoSave_Checked" Unchecked="chkAutoSave_UnChecked" />
-                                                       
+                                                        <CheckBox ToolTip="Enable AutoSave" ToolTipService.ShowOnDisabled="True" Content="Enable AutoSave" Height="16" HorizontalAlignment="Left" Margin="6,6,0,0" Name="chkAutoSave" VerticalAlignment="Top" Checked="chkAutoSave_Checked" Unchecked="chkAutoSave_UnChecked" />
+                                                        <StackPanel  Name="stckpanelAutoSaveInterval"  Orientation="Horizontal" Margin="1" IsEnabled="false">
+                                                            <Label Content="AutoSave Interval (sec)" Height="27" Name="lblAutoSaveInterval" Width="200" VerticalContentAlignment="Center" />
+                                                            <TextBox MaxLength="5" Height="21" Name="txtAutoSaveInterval" Text="5" Width="70" HorizontalAlignment="Right" VerticalAlignment="Center" FlowDirection="LeftToRight" Margin="30,0,0,0" PreviewTextInput="txtAutoSaveInterval_PreviewTextInput" TextChanged="txtAutoSaveInterval_TextChanged" PreviewLostKeyboardFocus="txtAutoSaveInterval_PreviewLostKeyboardFocus"/>
+
+                                                        </StackPanel>
+
                                                     </StackPanel>
+                                                    
                                                 </GroupBox>
+                                                
                                             </StackPanel>
                                         </Border>
                                     </Grid>
