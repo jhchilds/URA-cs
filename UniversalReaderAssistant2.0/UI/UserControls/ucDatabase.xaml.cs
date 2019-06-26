@@ -396,7 +396,7 @@ namespace ThingMagic.URA2
         private bool retrieveData()
         {
             //TESTING DATABASE ACCESS
-            rfid.epcID = txtCurrentEpc.Text;
+            rfid.epc = txtCurrentEpc.Text;
             DataTable dt = rfid.Select(rfid);
             dgTagResults.DataContext = dt;
 
@@ -407,14 +407,37 @@ namespace ThingMagic.URA2
             //Putting data into datafields.
             foreach (DataRow dataRow in dt.Rows)
             {
-                txtRFIDDatabaseID.Text = dataRow.ItemArray[0].ToString();
-                txtAssetID.Text = dataRow.ItemArray[1].ToString();
-                txtAssetIDAsset.Text = dataRow.ItemArray[1].ToString(); //FOR ASSET DATA
-                txtRFIDManufactureDate.Text = dataRow.ItemArray[3].ToString();
-                txtRFIDInstallationDate.Text = dataRow.ItemArray[4].ToString();
-                txtAssetDescription.Text = dataRow.ItemArray[5].ToString();
-                txtRFIDComments.Text = dataRow.ItemArray[6].ToString();
-                txtAssetComments.Text = dataRow.ItemArray[7].ToString();
+                //rfid table data
+                txtRFIDDatabaseID.Text = dataRow.ItemArray[0].ToString(); //rfid.id
+                //txtCurrentEpc.Text = dataRow.ItemArray[1].ToString(); //rfid.epc here for reference not LIVE. Epc retrieved from Tag Results.
+                txtRFIDManufactureDate.Text = dataRow.ItemArray[2].ToString();//rfid.manufacture_date
+                txtRFIDInstallationDate.Text = dataRow.ItemArray[3].ToString();//rfid.installation_date
+                txtAssetID.Text = dataRow.ItemArray[4].ToString();//rfid.asset_id
+                txtRFIDCreatedAt.Text = dataRow.ItemArray[5].ToString();//rfid.created_at
+                txtRFIDComments.Text = dataRow.ItemArray[6].ToString();//rfid.comments
+                //asset table data
+                txtAssetIDAsset.Text = dataRow.ItemArray[7].ToString();//asset.id
+                txtLaneDirection.Text = dataRow.ItemArray[8].ToString();//asset.lane_direction
+                txtPositionCode.Text = dataRow.ItemArray[9].ToString();//asset.position_code
+                txtRouteSuffix.Text = dataRow.ItemArray[10].ToString();//asset.route_suffix
+                txtMarker.Text = dataRow.ItemArray[11].ToString();//asset.marker
+                txtCity.Text = dataRow.ItemArray[12].ToString();//asset.city
+                txtCounty.Text = dataRow.ItemArray[13].ToString();//asset.county
+                txtDistrict.Text = dataRow.ItemArray[14].ToString();//asset.district
+                txtStreetName.Text = dataRow.ItemArray[15].ToString();//asset.streetname
+                txtMutcdCode.Text = dataRow.ItemArray[16].ToString();//asset.mutcd_code
+                txtRetired.Text = dataRow.ItemArray[17].ToString();//asset.retired
+                txtReplaced.Text = dataRow.ItemArray[18].ToString();//asset.replaced
+                txtSignAge.Text = dataRow.ItemArray[19].ToString();//asset.sign_age
+                txtTwnTid.Text = dataRow.ItemArray[20].ToString();//asset.twn_tid
+                txtTwnMi.Text = dataRow.ItemArray[21].ToString();//asset.twn_mi
+                txtQcFlag.Text = dataRow.ItemArray[22].ToString();//asset.qc_flag
+                txtMinTwnFm.Text = dataRow.ItemArray[23].ToString();//asset.min_twn_fm
+                txtMaxTwnTm.Text = dataRow.ItemArray[24].ToString();//asset.max_twn_tm
+                txtSrSid.Text = dataRow.ItemArray[25].ToString();//asset.sr_sid
+                txtSignHeight.Text = dataRow.ItemArray[26].ToString();//asset.sign_height
+                txtSignWidth.Text = dataRow.ItemArray[27].ToString();//asset.sign_width
+
 
             }
 
@@ -447,10 +470,28 @@ namespace ThingMagic.URA2
         /// </summary>
         public void ClearAsset()
         {
-            txtAssetComments.Text = "";
+            
             txtAssetIDAsset.Text = ""; //Asset Data AssetID
-            txtAssetDescription.Text = "";
-
+            txtLaneDirection.Text = "";
+            txtPositionCode.Text = "";
+            txtRouteSuffix.Text = "";
+            txtMarker.Text = "";
+            txtCity.Text = "";
+            txtCounty.Text = "";
+            txtDistrict.Text = "";
+            txtStreetName.Text = "";
+            txtMutcdCode.Text = "";
+            txtRetired.Text = "";
+            txtReplaced.Text = "";
+            txtSignAge.Text = "";
+            txtTwnTid.Text = "";
+            txtTwnMi.Text = "";
+            txtQcFlag.Text = "";
+            txtMinTwnFm.Text = "";
+            txtMaxTwnTm.Text = "";
+            txtSrSid.Text = "";
+            txtSignHeight.Text = "";
+            txtSignWidth.Text = "";
         }
 
        
@@ -478,11 +519,11 @@ namespace ThingMagic.URA2
             //Get the value from input fields 
             try
             {
-                rfid.epcID = txtCurrentEpc.Text; //Text box has type String 
-                rfid.rfidManufactureDate = txtRFIDManufactureDate.Text;
-                rfid.rfidInstallationDate = txtRFIDInstallationDate.Text;
-                rfid.rfidAssetID = int.Parse(txtAssetID.Text);
-                rfid.rfidComments = txtRFIDComments.Text;
+                rfid.epc = txtCurrentEpc.Text; //Text box has type String 
+                rfid.manufacture_date = txtRFIDManufactureDate.Text;
+                rfid.installation_date = txtRFIDInstallationDate.Text;
+                rfid.asset_id = int.Parse(txtAssetID.Text);
+                rfid.comments = txtRFIDComments.Text;
 
             }
             catch (Exception ex)
@@ -522,12 +563,12 @@ namespace ThingMagic.URA2
             try
             {
                 //Retrieve Data from the Fields
-                rfid.databaseID = int.Parse(txtRFIDDatabaseID.Text);
-                rfid.epcID = txtCurrentEpc.Text;
-                rfid.rfidManufactureDate = txtRFIDManufactureDate.Text;
-                rfid.rfidInstallationDate = txtRFIDInstallationDate.Text;
-                rfid.rfidAssetID = int.Parse(txtAssetID.Text);
-                rfid.rfidComments = txtRFIDComments.Text;
+                rfid.id = int.Parse(txtRFIDDatabaseID.Text);
+                rfid.epc = txtCurrentEpc.Text;
+                rfid.manufacture_date = txtRFIDManufactureDate.Text;
+                rfid.installation_date = txtRFIDInstallationDate.Text;
+                rfid.asset_id = int.Parse(txtAssetID.Text);
+                rfid.comments = txtRFIDComments.Text;
 
             }
             catch (Exception ex)
@@ -576,7 +617,7 @@ namespace ThingMagic.URA2
             try
             {
                 //Retrieve data from Fields
-                rfid.databaseID = int.Parse(txtRFIDDatabaseID.Text);
+                rfid.id = int.Parse(txtRFIDDatabaseID.Text);
 
             }
             catch (Exception ex)
@@ -615,8 +656,26 @@ namespace ThingMagic.URA2
             try
             {
                 
-                asset.assetDescription = txtAssetDescription.Text; //Text box has type String 
-                asset.assetComments = txtAssetComments.Text;
+                asset.lane_direction = txtLaneDirection.Text; //Text box has type String 
+                asset.position_code = txtPositionCode.Text;
+                asset.route_suffix = txtRouteSuffix.Text;
+                asset.marker = float.Parse(txtMarker.Text);
+                asset.city = txtCity.Text;
+                asset.county = txtCounty.Text;
+                asset.district = int.Parse(txtDistrict.Text);
+                asset.streetname = txtStreetName.Text;
+                asset.mutcd_code = txtMutcdCode.Text;
+                asset.retired = int.Parse(txtRetired.Text);
+                asset.replaced = DateTime.Parse(txtReplaced.Text);
+                asset.sign_age = int.Parse(txtSignAge.Text);
+                asset.twn_tid = txtTwnTid.Text;
+                asset.twn_mi = float.Parse(txtTwnMi.Text);
+                asset.qc_flag = int.Parse(txtQcFlag.Text);
+                asset.min_twn_fm = float.Parse(txtMinTwnFm.Text);
+                asset.max_twn_tm = float.Parse(txtMaxTwnTm.Text);
+                asset.sr_sid = txtSrSid.Text;
+                asset.sign_height = int.Parse(txtSignHeight.Text);
+                asset.sign_width = int.Parse(txtSignWidth.Text);
              
 
             }
@@ -656,10 +715,29 @@ namespace ThingMagic.URA2
             try
             {
                 //Retrieve Data from the Fields
-                asset.assetAssetID = int.Parse(txtAssetID.Text);
-                asset.assetDescription = txtAssetDescription.Text;
-                asset.assetComments = txtAssetComments.Text;
-               
+                asset.id = int.Parse(txtAssetIDAsset.Text);
+                asset.lane_direction = txtLaneDirection.Text; 
+                asset.position_code = txtPositionCode.Text;
+                asset.route_suffix = txtRouteSuffix.Text;
+                asset.marker = float.Parse(txtMarker.Text);
+                asset.city = txtCity.Text;
+                asset.county = txtCounty.Text;
+                asset.district = int.Parse(txtDistrict.Text);
+                asset.streetname = txtStreetName.Text;
+                asset.mutcd_code = txtMutcdCode.Text;
+                asset.retired = int.Parse(txtRetired.Text);
+                asset.replaced = DateTime.Parse(txtReplaced.Text);
+                asset.sign_age = int.Parse(txtSignAge.Text);
+                asset.twn_tid = txtTwnTid.Text;
+                asset.twn_mi = float.Parse(txtTwnMi.Text);
+                asset.qc_flag = int.Parse(txtQcFlag.Text);
+                asset.min_twn_fm = float.Parse(txtMinTwnFm.Text);
+                asset.max_twn_tm = float.Parse(txtMaxTwnTm.Text);
+                asset.sr_sid = txtSrSid.Text;
+                asset.sign_height = int.Parse(txtSignHeight.Text);
+                asset.sign_width = int.Parse(txtSignWidth.Text);
+
+
 
             }
             catch (Exception ex)
@@ -701,7 +779,7 @@ namespace ThingMagic.URA2
             try
             {
                 //Retrieve data from Fields
-                asset.assetAssetID = int.Parse(txtAssetID.Text);
+                asset.id = int.Parse(txtAssetIDAsset.Text);
 
             }
             catch (Exception ex)

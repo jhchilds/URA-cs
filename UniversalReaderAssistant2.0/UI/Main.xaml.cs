@@ -14412,17 +14412,17 @@ namespace ThingMagic.URA2
         /// <param name="e"></param>
         private void tiDatabase_GotFocus(object sender, RoutedEventArgs e)
         {
-            //Database.spDatabase.IsEnabled = true; //Uncomment when testing without reader
+            Database.spDatabase.IsEnabled = true; //Uncomment when testing without reader
             Database.LoadEPC(objReader);
             if (lblshowStatus.Content.ToString() == "Reading")
             {
                 tiTagResults.Focus();
                 return;
             }
-            if (!IsGen2ProtocolChecked(false)) //Comment out for testing without reader
-            {
-                return;
-            }
+            //if (!IsGen2ProtocolChecked(false)) //Comment out for testing without reader
+            //{
+            //    return;
+            //}
             if (btnRead.Visibility == System.Windows.Visibility.Visible)
             {
                 Database.spDatabase.IsEnabled = true;

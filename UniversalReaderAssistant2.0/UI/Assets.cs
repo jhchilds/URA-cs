@@ -11,10 +11,28 @@ namespace ThingMagic.URA2
     class Assets
     {
         //Getter and Setters
-        public int assetAssetID { get; set; }
-        public string assetDescription { get; set;}
-        public string assetComments { get; set; } 
-      
+        public int id { get; set; }
+        public string lane_direction { get; set;}
+        public string position_code { get; set; } 
+        public string route_suffix { get; set; } 
+        public float marker { get; set; } 
+        public string city { get; set; } 
+        public string county { get; set; } 
+        public int district { get; set; } 
+        public string streetname { get; set; } 
+        public string mutcd_code { get; set; } 
+        public int retired { get; set; } 
+        public DateTime replaced { get; set; } 
+        public int sign_age { get; set; } 
+        public string twn_tid { get; set; } 
+        public float twn_mi { get; set; } 
+        public int qc_flag { get; set; } 
+        public float min_twn_fm { get; set; } 
+        public float max_twn_tm { get; set; } 
+        public string sr_sid { get; set; } 
+        public int sign_height { get; set; } 
+        public int sign_width { get; set; } 
+        
 
         static string myconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
@@ -31,10 +49,10 @@ namespace ThingMagic.URA2
             try
             {
                 //SQL Query to select from database
-                string sql = "SELECT * FROM tbl_asset WHERE assetID = @assetID";
+                string sql = "SELECT * FROM asset WHERE id = @id";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
-                cmd.Parameters.AddWithValue("@assetID", asset.assetAssetID);
+                cmd.Parameters.AddWithValue("@id", asset.id);
 
 
 
@@ -76,13 +94,37 @@ namespace ThingMagic.URA2
             try
             {
                 //Create SQL Query for inserting data
-                string sql = "INSERT INTO tbl_asset (assetDescription, assetComments) VALUES (@assetDescription, @assetComments)";
+                string sql = "INSERT INTO asset (lane_direction, position_code, route_suffix," +
+                    " marker, city, county, district, streetname, mutcd_code," +
+                    " retired, replaced, sign_age, twn_tid, twn_mi, qc_flag," +
+                    " min_twn_fm, max_twn_tm, sr_sid, sign_height, sign_width)" +
+                    " VALUES (@lane_direction, @position_code, @route_suffix," +
+                    " @marker, @city, @county, @district, @streetname, @mutcd_code," +
+                    " @retired, @replaced, @sign_age, @twn_tid, @twn_mi, @qc_flag," +
+                    " @min_twn_fm, @max_twn_tm, @sr_sid, @sign_height, @sign_width)";
 
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 //Parameters for adding data to databse
-                cmd.Parameters.AddWithValue("@assetDescription", asset.assetDescription);
-                cmd.Parameters.AddWithValue("@assetComments", asset.assetComments);
+                cmd.Parameters.AddWithValue("@lane_direction", asset.lane_direction);
+                cmd.Parameters.AddWithValue("@position_code", asset.position_code);
+                cmd.Parameters.AddWithValue("@route_suffix", asset.route_suffix);
+                cmd.Parameters.AddWithValue("@marker", asset.city);
+                cmd.Parameters.AddWithValue("@county", asset.county);
+                cmd.Parameters.AddWithValue("@district", asset.district);
+                cmd.Parameters.AddWithValue("@streetname", asset.streetname);
+                cmd.Parameters.AddWithValue("@mutcd_code", asset.mutcd_code);
+                cmd.Parameters.AddWithValue("@retired", asset.retired);
+                cmd.Parameters.AddWithValue("@replaced", asset.replaced);
+                cmd.Parameters.AddWithValue("@sign_age", asset.sign_age);
+                cmd.Parameters.AddWithValue("@twn_tid", asset.twn_tid);
+                cmd.Parameters.AddWithValue("@twn_mi", asset.twn_mi);
+                cmd.Parameters.AddWithValue("@qc_flag", asset.qc_flag);
+                cmd.Parameters.AddWithValue("@min_twn_fm", asset.min_twn_fm);
+                cmd.Parameters.AddWithValue("@max_twn_tm", asset.max_twn_tm);
+                cmd.Parameters.AddWithValue("@sr_sid", asset.sr_sid);
+                cmd.Parameters.AddWithValue("@sign_height", asset.sign_height);
+                cmd.Parameters.AddWithValue("@sign_width", asset.sign_width);
              
 
 
@@ -123,14 +165,40 @@ namespace ThingMagic.URA2
             try
             {
                 //Update database values
-                string sql = "UPDATE tbl_asset SET assetDescription=@assetDescription, assetComments=@assetComments WHERE assetID=@assetID";
+                string sql = "UPDATE asset SET lane_direction=@lane_direction," +
+                    " position_code=@position_code, route_suffix=@route_suffix," +
+                    " marker=@marker, city=@city, county=@county," +
+                    " district=@district, streetname=@streetname," +
+                    " mutcd_code=@mutcd_code, retired=@retired," +
+                    " replaced=@replaced, sign_age=@sign_age," +
+                    " twn_tid=@twn_tid, twn_mi=@twn_mi," +
+                    " qc_flag=@qc_flag, min_twn_fm=@min_twn_fm," +
+                    " max_twn_tm=@max_twn_tm, sr_sid=@sr_sid," +
+                    " sign_height=@sign_height, sign_width=@sign_width WHERE id=@id";
 
                 //SQL Command
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 //Parameters to add value
-                cmd.Parameters.AddWithValue("assetID", asset.assetAssetID);
-                cmd.Parameters.AddWithValue("assetDescription", asset.assetDescription);
-                cmd.Parameters.AddWithValue("assetComments", asset.assetComments);
+                cmd.Parameters.AddWithValue("id", asset.id);
+                cmd.Parameters.AddWithValue("lane_direction", asset.lane_direction);
+                cmd.Parameters.AddWithValue("position_code", asset.position_code);
+                cmd.Parameters.AddWithValue("route_suffix", asset.route_suffix);
+                cmd.Parameters.AddWithValue("marker", asset.city);
+                cmd.Parameters.AddWithValue("county", asset.county);
+                cmd.Parameters.AddWithValue("district", asset.district);
+                cmd.Parameters.AddWithValue("streetname", asset.streetname);
+                cmd.Parameters.AddWithValue("mutcd_code", asset.mutcd_code);
+                cmd.Parameters.AddWithValue("retired", asset.retired);
+                cmd.Parameters.AddWithValue("replaced", asset.replaced);
+                cmd.Parameters.AddWithValue("sign_age", asset.sign_age);
+                cmd.Parameters.AddWithValue("twn_tid", asset.twn_tid);
+                cmd.Parameters.AddWithValue("twn_mi", asset.twn_mi);
+                cmd.Parameters.AddWithValue("qc_flag", asset.qc_flag);
+                cmd.Parameters.AddWithValue("min_twn_fm", asset.min_twn_fm);
+                cmd.Parameters.AddWithValue("max_twn_tm", asset.max_twn_tm);
+                cmd.Parameters.AddWithValue("sr_sid", asset.sr_sid);
+                cmd.Parameters.AddWithValue("sign_height", asset.sign_height);
+                cmd.Parameters.AddWithValue("sign_width", asset.sign_width);
                 //Open Connection
                 conn.Open();
 
@@ -173,10 +241,10 @@ namespace ThingMagic.URA2
             try
             {
                 //Delete from database
-                string sql = "DELETE FROM tbl_asset WHERE assetID = @assetID";
+                string sql = "DELETE FROM asset WHERE id = @id";
                 //Sql Command
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@assetID", asset.assetAssetID);
+                cmd.Parameters.AddWithValue("@id", asset.id);
                 //Open Connection to server
                 conn.Open();
                 int rows = cmd.ExecuteNonQuery();

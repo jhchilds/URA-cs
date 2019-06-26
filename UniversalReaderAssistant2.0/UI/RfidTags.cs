@@ -11,12 +11,12 @@ namespace ThingMagic.URA2
     class RfidTags
     {
         //Getter and Setters
-        public int databaseID { get; set; }
-        public string epcID { get; set; } //HEX: 56414f54000000000000000000000001 Binary:01010110010000010100111101010100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
-        public string rfidManufactureDate { get; set; }
-        public string rfidInstallationDate { get; set; }
-        public int rfidAssetID { get; set; }
-        public string rfidComments { get; set; }
+        public int id { get; set; }
+        public string epc { get; set; } //HEX: 56414f54000000000000000000000001 Binary:01010110010000010100111101010100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+        public string manufacture_date { get; set; }
+        public string installation_date { get; set; }
+        public int asset_id { get; set; }
+        public string comments { get; set; }
 
         static string myconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
@@ -33,10 +33,19 @@ namespace ThingMagic.URA2
             try
             {
                 //SQL Query to select from database
-                string sql = "SELECT tbl_rfid.databaseID, tbl_asset.assetID, tbl_rfid.epcID, tbl_rfid.rfidManufactureDate, tbl_rfid.rfidInstallationDate, tbl_asset.assetDescription, tbl_rfid.rfidComments, tbl_asset.assetComments FROM tbl_asset INNER JOIN tbl_rfid ON tbl_asset.assetID = tbl_rfid.assetID WHERE epcID = @epcID";
+                string sql = "SELECT rfid.id, rfid.epc, rfid.manufacture_date," +
+                    " rfid.installation_date, rfid.asset_id, rfid.created_at, rfid.comments," +
+                    " asset.id, asset.lane_direction, asset.position_code," +
+                    " asset.route_suffix, asset.marker, asset.city," +
+                    " asset.county, asset.district, asset.streetname," +
+                    " asset.mutcd_code, asset.retired, asset.replaced," +
+                    " asset.sign_age, asset.twn_tid, asset.twn_mi," +
+                    " asset.qc_flag, asset.min_twn_fm, asset.max_twn_tm," +
+                    " asset.sr_sid, asset.sign_height," +
+                    " asset.sign_width FROM asset INNER JOIN rfid ON asset.id = rfid.asset_id WHERE epc = @epc";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
-                cmd.Parameters.AddWithValue("@epcID", rfid.epcID);
+                cmd.Parameters.AddWithValue("@epc", rfid.epc);
 
                
 
@@ -78,16 +87,16 @@ namespace ThingMagic.URA2
             try
             {
                 //Create SQL Query for inserting data
-                string sql = "INSERT INTO tbl_rfid (epcID, rfidManufactureDate, rfidInstallationDate, assetID, rfidComments) VALUES (@epcID, @rfidManufactureDate, @rfidInstallationDate, @assetID, @rfidComments)";
+                string sql = "INSERT INTO rfid (epc, manufacture_date, installation_date, asset_id, comments) VALUES (@epc, @manufacture_date, @installation_date, @asset_id, @comments)";
 
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 //Parameters for adding data to databse
-                cmd.Parameters.AddWithValue("@epcID", c.epcID);
-                cmd.Parameters.AddWithValue("@rfidManufactureDate", c.rfidManufactureDate);
-                cmd.Parameters.AddWithValue("@rfidInstallationDate", c.rfidInstallationDate);
-                cmd.Parameters.AddWithValue("@assetID", c.rfidAssetID);
-                cmd.Parameters.AddWithValue("@rfidComments", c.rfidComments);
+                cmd.Parameters.AddWithValue("@epc", c.epc);
+                cmd.Parameters.AddWithValue("@manufacture_date", c.manufacture_date);
+                cmd.Parameters.AddWithValue("@installation_date", c.installation_date);
+                cmd.Parameters.AddWithValue("@asset_id", c.asset_id);
+                cmd.Parameters.AddWithValue("@comments", c.comments);
 
 
 
@@ -127,17 +136,19 @@ namespace ThingMagic.URA2
             try
             {
                 //Update database values
-                string sql = "UPDATE tbl_rfid SET epcID=@epcID, rfidManufactureDate=@rfidManufactureDate, rfidInstallationDate=@rfidInstallationDate, assetID=@assetID, rfidComments=@rfidComments WHERE databaseID=@databaseID";
+                string sql = "UPDATE rfid SET epc=@epc, manufacture_date=@manufacture_date," +
+                    " installation_date=@installation_date, asset_id=@asset_id," +
+                    " comments=@comments WHERE id=@id";
 
                 //SQL Command
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 //Parameters to add value
-                cmd.Parameters.AddWithValue("epcID", c.epcID);
-                cmd.Parameters.AddWithValue("rfidManufactureDate", c.rfidManufactureDate);
-                cmd.Parameters.AddWithValue("rfidInstallationDate", c.rfidInstallationDate);
-                cmd.Parameters.AddWithValue("assetID", c.rfidAssetID);
-                cmd.Parameters.AddWithValue("databaseID", c.databaseID);
-                cmd.Parameters.AddWithValue("rfidComments", c.rfidComments);
+                cmd.Parameters.AddWithValue("epc", c.epc);
+                cmd.Parameters.AddWithValue("manufacture_date", c.manufacture_date);
+                cmd.Parameters.AddWithValue("installation_date", c.installation_date);
+                cmd.Parameters.AddWithValue("asset_id", c.asset_id);
+                cmd.Parameters.AddWithValue("id", c.id);
+                cmd.Parameters.AddWithValue("comments", c.comments);
                 //Open Connection
                 conn.Open();
 
@@ -180,10 +191,10 @@ namespace ThingMagic.URA2
             try
             {
                 //Delete from database
-                string sql = "DELETE FROM tbl_rfid WHERE databaseID = @databaseID";
+                string sql = "DELETE FROM rfid WHERE id = @id";
                 //Sql Command
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@databaseID", c.databaseID);
+                cmd.Parameters.AddWithValue("@id", c.id);
                 //Open Connection to server
                 conn.Open();
                 int rows = cmd.ExecuteNonQuery();
