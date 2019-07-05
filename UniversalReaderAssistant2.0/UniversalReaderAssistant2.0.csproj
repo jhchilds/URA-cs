@@ -378,6 +378,7 @@
     <Content Include="Dlls\log4net.dll" />
     <Content Include="Dlls\MercuryAPI.dll" />
     <Content Include="Dlls\Xceed.Wpf.Toolkit.dll" />
+    <Resource Include="Images\uvm_logo.png" />
     <Resource Include="Images\logowithbg.jpg" />
     <Resource Include="Images\newlogo.png" />
     <Resource Include="Images\TMFinalNew.png" />

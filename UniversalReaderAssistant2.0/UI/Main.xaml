@@ -13,7 +13,7 @@
         xmlns:ucDatabase="clr-namespace:ThingMagic.URA2"
 
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="Universal Reader Assistant" Icon="/UniversalReaderAssistant;component/Icons/jadakfaviconbg.ico" WindowStartupLocation="CenterScreen" Closing="Window_Closing" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  d:DesignHeight="768" d:DesignWidth="1024" DataContext="{Binding ElementName=tcTagResults}" WindowState="Maximized">
+        Title="UVM Reader Assistant" Icon="/UniversalReaderAssistant;component/Icons/jadakfaviconbg.ico" WindowStartupLocation="CenterScreen" Closing="Window_Closing" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  d:DesignHeight="768" d:DesignWidth="1024" DataContext="{Binding ElementName=tcTagResults}" WindowState="Maximized">
     <Window.CommandBindings>
         <CommandBinding Command='ApplicationCommands.Help' Executed="CommandBinding_Executed" />
     </Window.CommandBindings>
@@ -124,7 +124,7 @@
                 <Image Name="toolbarOpeHelpImage" Source="..\Icons\Help.png" />
             </Button>
 
-            <Image Grid.Column="6" Margin="3,3,20,3" Name="image1" Source="/UniversalReaderAssistant;component/Images/company_logo.png" MouseDown="image1_MouseDown" HorizontalAlignment="Right"/>
+            <Image Grid.Column="4" Margin="0,-34,43,-35" Name="image1" Source="/UniversalReaderAssistant;component/Images/uvm_logo.png" MouseDown="image1_MouseDown" HorizontalAlignment="Right" Width="196" Grid.ColumnSpan="3"/>
         </Grid>
         <StackPanel Height="4" Grid.Row="0" Orientation="Horizontal" DockPanel.Dock="Top">
             <StackPanel.Background>
@@ -146,7 +146,7 @@
                 <TextBlock Height="20" Name="lblWarning" FontSize="12" TextWrapping="Wrap" VerticalAlignment="Center"/>
             </StatusBarItem>
             <StatusBarItem Grid.Column="1" Margin="0">
-                <Label Content="Copyright © 2017 JADAK, a business unit of Novanta Corporation. All Rights Reserved." />
+                <Label Content="Copyright © 2019 University of Vermont. All Rights Reserved." />
             </StatusBarItem>
         </StatusBar>
         <!-- The bar of buttons docked along the right edge: -->
@@ -1702,9 +1702,9 @@
                                                         </StackPanel>
 
                                                     </StackPanel>
-                                                    
+
                                                 </GroupBox>
-                                                
+
                                             </StackPanel>
                                         </Border>
                                     </Grid>
