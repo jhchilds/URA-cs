@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:ThingMagic.URA2"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="Universal Reader Assistant - Connection Wizard" Height="500" Width="700"
+        Title="UVM Reader Assistant - Connection Wizard" Height="500" Width="700"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/UniversalReaderAssistant;component/Icons/jadakfaviconbg.ico">
     <Window.CommandBindings>
         <CommandBinding Command='ApplicationCommands.Help' Executed="CommandBinding_Executed" />
@@ -51,7 +51,7 @@
                         <ColumnDefinition Width="50" />
                     </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="White" Content="Universal Reader Assistant Connection Wizard"/>
+                <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="White" Content="UVM Reader Assistant Connection Wizard"/>
                     <!--<Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" HorizontalAlignment="Center" FontSize="12" Foreground="White" Content="Follow the Steps below to connect to the Reader" Margin="0,-10,0,5"/>-->
 
                 <Button Grid.Row="2" Grid.Column="1"  Content="Select Reader" Style="{StaticResource WizardButtonTheme}" Margin="5" IsEnabled="{Binding IsSelectReaderButtonEnabled}" Command="{Binding WizardButtonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" Visibility="{Binding ConnectionWizardButtonVisibility}"/>
@@ -76,7 +76,7 @@
                             <TextBlock FontWeight="DemiBold" TextWrapping="Wrap" Text="{Binding StatusWarningText}" Foreground="{Binding StatusWarningColor}" VerticalAlignment="Center" Margin="5"/>
                         </DockPanel>
                         <Border Background="#FFE2E2E2" BorderBrush="#FFAAAAAA" BorderThickness="1" Grid.Row="1" VerticalAlignment="Bottom">
-                            <Label FontSize="10" Content="Copyright © 2017 JADAK, a business unit of Novanta Corporation. All Rights Reserved." DockPanel.Dock="Right" HorizontalContentAlignment="Center"></Label>
+                            <Label FontSize="10" Content="Copyright © 2019 University of Vermont. All Rights Reserved." DockPanel.Dock="Right" HorizontalContentAlignment="Center"></Label>
                         </Border>
                     </StackPanel>
                 </DockPanel>

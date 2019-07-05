@@ -413,30 +413,29 @@ namespace ThingMagic.URA2
                 txtRFIDManufactureDate.Text = dataRow.ItemArray[2].ToString();//rfid.manufacture_date
                 txtRFIDInstallationDate.Text = dataRow.ItemArray[3].ToString();//rfid.installation_date
                 txtAssetID.Text = dataRow.ItemArray[4].ToString();//rfid.asset_id
-                txtRFIDCreatedAt.Text = dataRow.ItemArray[5].ToString();//rfid.created_at
-                txtRFIDComments.Text = dataRow.ItemArray[6].ToString();//rfid.comments
+                txtRFIDComments.Text = dataRow.ItemArray[5].ToString();//rfid.comments
                 //asset table data
-                txtAssetIDAsset.Text = dataRow.ItemArray[7].ToString();//asset.id
-                txtLaneDirection.Text = dataRow.ItemArray[8].ToString();//asset.lane_direction
-                txtPositionCode.Text = dataRow.ItemArray[9].ToString();//asset.position_code
-                txtRouteSuffix.Text = dataRow.ItemArray[10].ToString();//asset.route_suffix
-                txtMarker.Text = dataRow.ItemArray[11].ToString();//asset.marker
-                txtCity.Text = dataRow.ItemArray[12].ToString();//asset.city
-                txtCounty.Text = dataRow.ItemArray[13].ToString();//asset.county
-                txtDistrict.Text = dataRow.ItemArray[14].ToString();//asset.district
-                txtStreetName.Text = dataRow.ItemArray[15].ToString();//asset.streetname
-                txtMutcdCode.Text = dataRow.ItemArray[16].ToString();//asset.mutcd_code
-                txtRetired.Text = dataRow.ItemArray[17].ToString();//asset.retired
-                txtReplaced.Text = dataRow.ItemArray[18].ToString();//asset.replaced
-                txtSignAge.Text = dataRow.ItemArray[19].ToString();//asset.sign_age
-                txtTwnTid.Text = dataRow.ItemArray[20].ToString();//asset.twn_tid
-                txtTwnMi.Text = dataRow.ItemArray[21].ToString();//asset.twn_mi
-                txtQcFlag.Text = dataRow.ItemArray[22].ToString();//asset.qc_flag
-                txtMinTwnFm.Text = dataRow.ItemArray[23].ToString();//asset.min_twn_fm
-                txtMaxTwnTm.Text = dataRow.ItemArray[24].ToString();//asset.max_twn_tm
-                txtSrSid.Text = dataRow.ItemArray[25].ToString();//asset.sr_sid
-                txtSignHeight.Text = dataRow.ItemArray[26].ToString();//asset.sign_height
-                txtSignWidth.Text = dataRow.ItemArray[27].ToString();//asset.sign_width
+                txtAssetIDAsset.Text = dataRow.ItemArray[6].ToString();//asset.id
+                txtLaneDirection.Text = dataRow.ItemArray[7].ToString();//asset.lane_direction
+                txtPositionCode.Text = dataRow.ItemArray[8].ToString();//asset.position_code
+                txtRouteSuffix.Text = dataRow.ItemArray[9].ToString();//asset.route_suffix
+                txtMarker.Text = dataRow.ItemArray[10].ToString();//asset.marker
+                txtCity.Text = dataRow.ItemArray[11].ToString();//asset.city
+                txtCounty.Text = dataRow.ItemArray[12].ToString();//asset.county
+                txtDistrict.Text = dataRow.ItemArray[13].ToString();//asset.district
+                txtStreetName.Text = dataRow.ItemArray[14].ToString();//asset.streetname
+                txtMutcdCode.Text = dataRow.ItemArray[15].ToString();//asset.mutcd_code
+                txtRetired.Text = dataRow.ItemArray[16].ToString();//asset.retired
+                txtReplaced.Text = dataRow.ItemArray[17].ToString();//asset.replaced
+                txtSignAge.Text = dataRow.ItemArray[18].ToString();//asset.sign_age
+                txtTwnTid.Text = dataRow.ItemArray[19].ToString();//asset.twn_tid
+                txtTwnMi.Text = dataRow.ItemArray[20].ToString();//asset.twn_mi
+                txtQcFlag.Text = dataRow.ItemArray[21].ToString();//asset.qc_flag
+                txtMinTwnFm.Text = dataRow.ItemArray[22].ToString();//asset.min_twn_fm
+                txtMaxTwnTm.Text = dataRow.ItemArray[23].ToString();//asset.max_twn_tm
+                txtSrSid.Text = dataRow.ItemArray[24].ToString();//asset.sr_sid
+                txtSignHeight.Text = dataRow.ItemArray[25].ToString();//asset.sign_height
+                txtSignWidth.Text = dataRow.ItemArray[26].ToString();//asset.sign_width
 
 
             }

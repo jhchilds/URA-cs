@@ -34,7 +34,7 @@ namespace ThingMagic.URA2
             {
                 //SQL Query to select from database
                 string sql = "SELECT rfid.id, rfid.epc, rfid.manufacture_date," +
-                    " rfid.installation_date, rfid.asset_id, rfid.created_at, rfid.comments," +
+                    " rfid.installation_date, rfid.asset_id, rfid.comments," +
                     " asset.id, asset.lane_direction, asset.position_code," +
                     " asset.route_suffix, asset.marker, asset.city," +
                     " asset.county, asset.district, asset.streetname," +
@@ -43,6 +43,7 @@ namespace ThingMagic.URA2
                     " asset.qc_flag, asset.min_twn_fm, asset.max_twn_tm," +
                     " asset.sr_sid, asset.sign_height," +
                     " asset.sign_width FROM asset INNER JOIN rfid ON asset.id = rfid.asset_id WHERE epc = @epc";
+
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
                 cmd.Parameters.AddWithValue("@epc", rfid.epc);
