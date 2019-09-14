@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Web.Script.Serialization;
 using System.Data;
 using ThingMagic;
 using ThingMagic.URA2.BL;
-
 namespace ThingMagic.URA2
 {
     /// <summary>
@@ -395,6 +396,8 @@ namespace ThingMagic.URA2
         /// </summary>
         private bool retrieveData()
         {
+            GetRequestVTransREST(); //TEST GET REQUEST
+
             //TESTING DATABASE ACCESS
             rfid.epc = txtCurrentEpc.Text;
             DataTable dt = rfid.Select(rfid);
@@ -807,5 +810,51 @@ namespace ThingMagic.URA2
 
             }
         }
+
+        private void GetRequestVTransREST()
+        {
+
+            HttpWebRequest requestAsset = (HttpWebRequest)WebRequest.Create("https://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/" +
+                "FeatureServer/1/query?where=&objectIds=1&time=&geometry=&geometryType=esriGeome" +
+                "tryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit" +
+                "_Foot&relationParam=&outFields=OBJECTID%2CSignMainGeneralOID%2CID%2CLaneDirecti" +
+                "on%2CPositionCode%2CRouteSuffix%2CMarker%2CCity%2CCounty%2CDistrict%2CSTREETNAM" +
+                "E%2CMUTCDCode%2CRetired%2CReplaced%2CSignAge%2CTWN_TID%2CTWN_MI%2CQCFLAG%2CMIN_T" +
+                "WN_FMI%2CMAX_TWN_TMI%2CSR_SID%2CSignHeight%2CSignWidth%2CGlobalID&returnGeometry" +
+                "=true&maxAllowableOffset=&geometryPrecision=&outSR=&gdbVersion=&historicMoment" +
+                "=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnE" +
+                "xtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&retur" +
+                "nZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&retur" +
+                "nTrueCurves=false&sqlFormat=none&f=json");
+            requestAsset.Method = "Get";
+            requestAsset.ContentType = "application/json";
+
+            HttpWebResponse responseAsset = (HttpWebResponse)requestAsset.GetResponse();
+
+            
+
+            string responseStr = "";
+
+            using (System.IO.StreamReader sr = new System.IO.StreamReader(responseAsset.GetResponseStream()))
+            {
+                responseStr = sr.ReadToEnd();
+
+            }
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            dynamic responseDict = serializer.Deserialize<dynamic>(responseStr);
+
+
+
+            //Console.WriteLine(responseStr);
+
+
+            foreach (KeyValuePair<string, dynamic> kvp in responseDict)
+            {
+                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+            }
+        }
+
     }
 }
