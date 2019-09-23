@@ -50,7 +50,7 @@
             </GroupBox.Header>
             <StackPanel Height="Auto" x:Name="grid3" Margin="5" Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Margin="34,0,177,0">
-                    <TextBox Cursor="Arrow" Margin="3" x:Name="txtCurrentEpc" Background="#0A000000"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="293" CharacterCasing="Normal" FontFamily="Consolas" TextWrapping="Wrap" IsReadOnly="False" VerticalScrollBarVisibility="Auto" PreviewTextInput="txtCurrentEpc_PreviewTextInput" PreviewKeyDown="txtCurrentEpc_PreviewKeyDown">
+                    <TextBox Cursor="Arrow" Margin="3" x:Name="txtCurrentEpc" Background="#0A000000"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="293" CharacterCasing="Normal" FontFamily="Consolas" TextWrapping="Wrap" IsReadOnly="False" VerticalScrollBarVisibility="Auto" PreviewTextInput="txtCurrentEpc_PreviewTextInput" PreviewKeyDown="txtCurrentEpc_PreviewKeyDown" Text="56414F54000000000000000000000001">
                         <TextBox.CommandBindings>
                             <CommandBinding Command="Paste" CanExecute="CommandBinding_CanExecute"/>
                             <CommandBinding Command="Cut" CanExecute="CommandBinding_CanExecute"/>

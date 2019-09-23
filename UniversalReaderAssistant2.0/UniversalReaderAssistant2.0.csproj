@@ -328,6 +328,8 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="RESTSign.json" />
+    <None Include="RESTTag.json" />
     <None Include="packages.config" />
     <None Include="UniversalReaderAssistant.exe.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

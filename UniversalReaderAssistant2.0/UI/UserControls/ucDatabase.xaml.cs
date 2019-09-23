@@ -399,9 +399,16 @@ namespace ThingMagic.URA2
         /// </summary>
         private bool retrieveData()
         {
+            ///IF we are using the VTrans REST API
             if (chkBoxREST.IsChecked == true)
             {
-                GetRequestVTransREST(); //TEST GET REQUEST
+                //NO Tags with specified EPC In Database
+                if(GetRequestVTransREST() == false)
+                {
+                    return false;
+                }
+
+                
                 return true;
             }
 
@@ -823,61 +830,80 @@ namespace ThingMagic.URA2
             }
         }
 
-        private void GetRequestVTransREST()
+        private bool GetRequestVTransREST()
         {
-            HttpWebRequest requestAsset = (HttpWebRequest)WebRequest.Create(
-                "https://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/FeatureServer/1/" +
-
-                "query?where=&objectIds=2&time=&geometry=&geometryType=esriGeome" +
-                "tryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit" +
-                "_Foot&relationParam=&outFields=OBJECTID%2CSignMainGeneralOID%2CID%2CLaneDirecti" +
-                "on%2CPositionCode%2CRouteSuffix%2CMarker%2CCity%2CCounty%2CDistrict%2CSTREETNAM" +
-                "E%2CMUTCDCode%2CRetired%2CReplaced%2CSignAge%2CTWN_TID%2CTWN_MI%2CQCFLAG%2CMIN_T" +
-                "WN_FMI%2CMAX_TWN_TMI%2CSR_SID%2CSignHeight%2CSignWidth%2CGlobalID&returnGeometry" +
+            try
+            {
+                HttpWebRequest requestTag = (HttpWebRequest)WebRequest.Create(
+                "https://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/FeatureServer/2/" +
+                "query?where=epc='" + txtCurrentEpc.Text +
+                "'&time=&geometry=&geometryType=esriGeometryEnvelope" +
+                "&inSR=&spatialRel=esriSpatialRelIntersects&distance=" +
+                "&units=esriSRUnit" +
+                "_Foot&relationParam=&outFields=*" +
+                "&returnGeometry" +
                 "=true&maxAllowableOffset=&geometryPrecision=&outSR=&gdbVersion=&historicMoment" +
                 "=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnE" +
                 "xtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&retur" +
                 "nZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&retur" +
                 "nTrueCurves=false&sqlFormat=none&f=json");
 
-            requestAsset.Method = "Get";
-            requestAsset.ContentType = "application/json";
+                requestTag.Method = "Get";
+                requestTag.ContentType = "application/json";
 
-            HttpWebResponse responseAsset = (HttpWebResponse)requestAsset.GetResponse();
-
-
-
-            string responseStr = "";
-
-            using (System.IO.StreamReader sr = new System.IO.StreamReader(responseAsset.GetResponseStream()))
-            {
-                responseStr = sr.ReadToEnd();
-
-            }
-
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-
-            dynamic responseDict = serializer.Deserialize<dynamic>(responseStr);
+                HttpWebResponse responseAsset = (HttpWebResponse)requestTag.GetResponse();
 
 
-            Console.WriteLine("start test----------------------------------------------------");
 
-            foreach (KeyValuePair<string, dynamic> kvp in responseDict["features"][0]["attributes"])
-            {
-                if (kvp.Value == null)
+                string responseStr = "";
+
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(responseAsset.GetResponseStream()))
                 {
-                    Console.WriteLine("null");
-                }
-                else
-                {
-                    Console.WriteLine(kvp.Value);
+                    responseStr = sr.ReadToEnd();
 
                 }
 
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                dynamic responseDict = serializer.Deserialize<dynamic>(responseStr);
+
+                dynamic attributeDict = responseDict["features"][0]["attributes"];
+
+                Console.WriteLine("start test----------------------------------------------------");
+
+                foreach (KeyValuePair<string, dynamic> kvp in attributeDict)
+                {
+                    if (kvp.Value == null)
+                    {
+                        Console.WriteLine("null");
+                    }
+                    else
+                    {
+                        Console.WriteLine(kvp.Value);
+                    }
+                }
+
+                
+                //rfid table data
+                txtRFIDDatabaseID.Text = attributeDict["id"].ToString(); //rfid.id
+                txtRFIDManufactureDate.Text = attributeDict["manufacture_date"].ToString();//rfid.manufacture_date
+                txtRFIDInstallationDate.Text = attributeDict["installation_date"].ToString();//rfid.installation_date
+                txtAssetID.Text = attributeDict["asset_id"].ToString();//rfid.asset_id
+                txtRFIDComments.Text = attributeDict["comments"].ToString();//rfid.comments
+
+
+                return true;
+            }
+            ///<summary>
+            /// If request does not return valid dictionary return false, tag does not exist
+            ///</summary>
+            catch(Exception ex)
+            {
+
+                return false;
 
             }
-
-            Console.WriteLine("end test----------------------------------------------------");
+            
 
         }
 

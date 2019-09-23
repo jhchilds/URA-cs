@@ -1,0 +1,171 @@
+{
+  "objectIdFieldName": "OBJECTID",
+  "globalIdFieldName": "GlobalID",
+  "fields": [
+    {
+      "name": "OBJECTID",
+      "alias": "OBJECTID",
+      "type": "esriFieldTypeOID"
+    },
+    {
+      "name": "SignMainGeneralOID",
+      "alias": "SignMainGeneralOID",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "ID",
+      "alias": "ID",
+      "type": "esriFieldTypeString",
+      "length": 30
+    },
+    {
+      "name": "LaneDirection",
+      "alias": "LaneDirection",
+      "type": "esriFieldTypeString",
+      "length": 50
+    },
+    {
+      "name": "PositionCode",
+      "alias": "PositionCode",
+      "type": "esriFieldTypeString",
+      "length": 32
+    },
+    {
+      "name": "RouteSuffix",
+      "alias": "RouteSuffix",
+      "type": "esriFieldTypeString",
+      "length": 50
+    },
+    {
+      "name": "Marker",
+      "alias": "Marker",
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "name": "City",
+      "alias": "City",
+      "type": "esriFieldTypeString",
+      "length": 50
+    },
+    {
+      "name": "County",
+      "alias": "County",
+      "type": "esriFieldTypeString",
+      "length": 32
+    },
+    {
+      "name": "District",
+      "alias": "District",
+      "type": "esriFieldTypeString",
+      "length": 15
+    },
+    {
+      "name": "STREETNAME",
+      "alias": "STREETNAME",
+      "type": "esriFieldTypeString",
+      "length": 40
+    },
+    {
+      "name": "MUTCDCode",
+      "alias": "MUTCDCode",
+      "type": "esriFieldTypeString",
+      "length": 15
+    },
+    {
+      "name": "Retired",
+      "alias": "Retired",
+      "type": "esriFieldTypeDate",
+      "length": 8
+    },
+    {
+      "name": "Replaced",
+      "alias": "Replaced",
+      "type": "esriFieldTypeDate",
+      "length": 8
+    },
+    {
+      "name": "SignAge",
+      "alias": "SignAge",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "TWN_TID",
+      "alias": "TWN_TID",
+      "type": "esriFieldTypeString",
+      "length": 50
+    },
+    {
+      "name": "TWN_MI",
+      "alias": "TWN_MI",
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "name": "QCFLAG",
+      "alias": "QCFLAG",
+      "type": "esriFieldTypeString",
+      "length": 50
+    },
+    {
+      "name": "MIN_TWN_FMI",
+      "alias": "MIN_TWN_FMI",
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "name": "MAX_TWN_TMI",
+      "alias": "MAX_TWN_TMI",
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "name": "SR_SID",
+      "alias": "SR_SID",
+      "type": "esriFieldTypeString",
+      "length": 50
+    },
+    {
+      "name": "SignHeight",
+      "alias": "SignHeight",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "SignWidth",
+      "alias": "SignWidth",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "GlobalID",
+      "alias": "GlobalID",
+      "type": "esriFieldTypeGlobalID",
+      "length": 38
+    }
+  ],
+  "features": [
+    {
+      "attributes": {
+        "OBJECTID": 2,
+        "SignMainGeneralOID": 48785,
+        "ID": "48785",
+        "LaneDirection": "NB",
+        "PositionCode": "M",
+        "RouteSuffix": null,
+        "Marker": 1.53,
+        "City": "SO BURLINGTON, 0414",
+        "County": "04, CHITTENDEN",
+        "District": "5",
+        "STREETNAME": "0070, US7",
+        "MUTCDCode": "R10-10L",
+        "Retired": null,
+        "Replaced": null,
+        "SignAge": null,
+        "TWN_TID": "U007-0414",
+        "TWN_MI": 1.53,
+        "QCFLAG": null,
+        "MIN_TWN_FMI": 0,
+        "MAX_TWN_TMI": 1.738,
+        "SR_SID": "US-7",
+        "SignHeight": 30,
+        "SignWidth": 24,
+        "GlobalID": "{961172F1-5482-41EB-A65C-A60114A380AF}"
+      }
+    }
+  ]
+}
