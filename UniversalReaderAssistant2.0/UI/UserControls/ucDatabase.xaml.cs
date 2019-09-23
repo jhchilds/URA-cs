@@ -851,46 +851,96 @@ namespace ThingMagic.URA2
                 requestTag.Method = "Get";
                 requestTag.ContentType = "application/json";
 
-                HttpWebResponse responseAsset = (HttpWebResponse)requestTag.GetResponse();
+                HttpWebResponse responseTag = (HttpWebResponse)requestTag.GetResponse();
 
 
 
-                string responseStr = "";
+                string responseStrTag = "";
 
-                using (System.IO.StreamReader sr = new System.IO.StreamReader(responseAsset.GetResponseStream()))
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(responseTag.GetResponseStream()))
                 {
-                    responseStr = sr.ReadToEnd();
+                    responseStrTag = sr.ReadToEnd();
 
                 }
 
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
 
-                dynamic responseDict = serializer.Deserialize<dynamic>(responseStr);
+                dynamic responseDictTag = serializer.Deserialize<dynamic>(responseStrTag);
 
-                dynamic attributeDict = responseDict["features"][0]["attributes"];
-
-                Console.WriteLine("start test----------------------------------------------------");
-
-                foreach (KeyValuePair<string, dynamic> kvp in attributeDict)
-                {
-                    if (kvp.Value == null)
-                    {
-                        Console.WriteLine("null");
-                    }
-                    else
-                    {
-                        Console.WriteLine(kvp.Value);
-                    }
-                }
-
+                dynamic attributeDictTag = responseDictTag["features"][0]["attributes"];
                 
                 //rfid table data
-                txtRFIDDatabaseID.Text = attributeDict["id"].ToString(); //rfid.id
-                txtRFIDManufactureDate.Text = attributeDict["manufacture_date"].ToString();//rfid.manufacture_date
-                txtRFIDInstallationDate.Text = attributeDict["installation_date"].ToString();//rfid.installation_date
-                txtAssetID.Text = attributeDict["asset_id"].ToString();//rfid.asset_id
-                txtRFIDComments.Text = attributeDict["comments"].ToString();//rfid.comments
+                txtRFIDDatabaseID.Text = attributeDictTag["id"].ToString(); //rfid.id
+                txtRFIDManufactureDate.Text = attributeDictTag["manufacture_date"].ToString();//rfid.manufacture_date
+                txtRFIDInstallationDate.Text = attributeDictTag["installation_date"].ToString();//rfid.installation_date
+                txtAssetID.Text = attributeDictTag["asset_id"].ToString();//rfid.asset_id
+                txtRFIDComments.Text = attributeDictTag["comments"].ToString();//rfid.comments
 
+                ///<summary>
+                ///If there is an asset associated with a tag, display information from Asset table as well.
+                ///</summary>
+                if(txtAssetID.Text != "null")
+                {
+                    HttpWebRequest requestSign = (HttpWebRequest)WebRequest.Create(
+                    "https://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/FeatureServer/1/" +
+                    "query?where=OBJECTID=" + int.Parse(txtAssetID.Text) +
+                    "&time=&geometry=&geometryType=esriGeometryEnvelope" +
+                    "&inSR=&spatialRel=esriSpatialRelIntersects&distance=" +
+                    "&units=esriSRUnit" +
+                    "_Foot&relationParam=&outFields=*" +
+                    "&returnGeometry" +
+                    "=true&maxAllowableOffset=&geometryPrecision=&outSR=&gdbVersion=&historicMoment" +
+                    "=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnE" +
+                    "xtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&retur" +
+                    "nZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&retur" +
+                    "nTrueCurves=false&sqlFormat=none&f=json");
+
+                    requestSign.Method = "Get";
+                    requestSign.ContentType = "application/json";
+
+                    HttpWebResponse responseSign = (HttpWebResponse)requestSign.GetResponse();
+
+
+
+                    string responseStrSign = "";
+
+                    using (System.IO.StreamReader sr = new System.IO.StreamReader(responseSign.GetResponseStream()))
+                    {
+                        responseStrSign = sr.ReadToEnd();
+
+                    }
+
+                    JavaScriptSerializer serializerTag = new JavaScriptSerializer();
+
+                    dynamic responseDictSign = serializer.Deserialize<dynamic>(responseStrSign);
+
+                    dynamic attributeDictSign = responseDictSign["features"][0]["attributes"];
+
+
+                    //Populate Asset text fields appropriately
+                    txtAssetIDAsset.Text = attributeDictSign["OBJECTID"]?.ToString() ?? "null";
+                    txtLaneDirection.Text = attributeDictSign["LaneDirection"]?.ToString() ?? "null";
+                    txtPositionCode.Text = attributeDictSign["PositionCode"]?.ToString() ?? "null";
+                    txtRouteSuffix.Text = attributeDictSign["RouteSuffix"]?.ToString() ?? "null";
+                    txtMarker.Text = attributeDictSign["Marker"]?.ToString() ?? "null";
+                    txtCity.Text = attributeDictSign["City"]?.ToString() ?? "null";
+                    txtCounty.Text = attributeDictSign["County"]?.ToString() ?? "null";
+                    txtDistrict.Text = attributeDictSign["District"]?.ToString() ?? "null";
+                    txtStreetName.Text = attributeDictSign["STREETNAME"]?.ToString() ?? "null";
+                    txtMutcdCode.Text = attributeDictSign["MUTCDCode"]?.ToString() ?? "null";
+                    txtRetired.Text = attributeDictSign["Retired"]?.ToString() ?? "null";
+                    txtReplaced.Text = attributeDictSign["Replaced"]?.ToString() ?? "null";
+                    txtSignAge.Text = attributeDictSign["SignAge"]?.ToString() ?? "null";
+                    txtTwnTid.Text = attributeDictSign["TWN_TID"]?.ToString() ?? "null";
+                    txtTwnMi.Text = attributeDictSign["TWN_MI"]?.ToString() ?? "null";
+                    txtQcFlag.Text = attributeDictSign["QCFLAG"]?.ToString() ?? "null";
+                    txtMinTwnFm.Text = attributeDictSign["MIN_TWN_FMI"]?.ToString() ?? "null";
+                    txtMaxTwnTm.Text = attributeDictSign["MAX_TWN_TMI"]?.ToString() ?? "null";
+                    txtSrSid.Text = attributeDictSign["SR_SID"]?.ToString() ?? "null";
+                    txtSignHeight.Text = attributeDictSign["SignHeight"]?.ToString() ?? "null";
+                    txtSignWidth.Text = attributeDictSign["SignWidth"]?.ToString() ?? "null";
+
+                }
 
                 return true;
             }
