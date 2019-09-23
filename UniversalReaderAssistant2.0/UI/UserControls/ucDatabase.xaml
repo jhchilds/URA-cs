@@ -129,6 +129,7 @@
             <Label x:Name="lblSignWidth" Content="Sign Width" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="587" Height="28" FontSize="12" Foreground="Black"/>
             <TextBox x:Name="txtReplaced" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="335" Width="202" IsReadOnly="True" />
             <Label x:Name="lblReplaced" Content="Replaced" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="335" Height="28" FontSize="12" Foreground="Black"/>
+            <CheckBox x:Name="chkBoxREST" Content="USE VTRANS REST API" Canvas.Left="475" Canvas.Top="-37" Checked="ChkBoxREST_Checked"/>
         </Canvas>
 
 

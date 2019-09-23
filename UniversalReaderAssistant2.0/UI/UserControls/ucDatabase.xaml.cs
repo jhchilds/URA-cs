@@ -16,6 +16,8 @@ using System.Web.Script.Serialization;
 using System.Data;
 using ThingMagic;
 using ThingMagic.URA2.BL;
+using RestSharp;
+
 namespace ThingMagic.URA2
 {
     /// <summary>
@@ -23,6 +25,7 @@ namespace ThingMagic.URA2
     /// </summary>
     public partial class ucDatabase : UserControl
     {
+
         Reader objReader;
         uint startAddress = 0;
         int dataLength = 0;
@@ -396,59 +399,68 @@ namespace ThingMagic.URA2
         /// </summary>
         private bool retrieveData()
         {
-            GetRequestVTransREST(); //TEST GET REQUEST
-
-            //TESTING DATABASE ACCESS
-            rfid.epc = txtCurrentEpc.Text;
-            DataTable dt = rfid.Select(rfid);
-            dgTagResults.DataContext = dt;
-
-            //Clear Leftover Data
-            ClearRFID();
-            ClearAsset();
-
-            //Putting data into datafields.
-            foreach (DataRow dataRow in dt.Rows)
+            if (chkBoxREST.IsChecked == true)
             {
-                //rfid table data
-                txtRFIDDatabaseID.Text = dataRow.ItemArray[0].ToString(); //rfid.id
-                //txtCurrentEpc.Text = dataRow.ItemArray[1].ToString(); //rfid.epc here for reference not LIVE. Epc retrieved from Tag Results.
-                txtRFIDManufactureDate.Text = dataRow.ItemArray[2].ToString();//rfid.manufacture_date
-                txtRFIDInstallationDate.Text = dataRow.ItemArray[3].ToString();//rfid.installation_date
-                txtAssetID.Text = dataRow.ItemArray[4].ToString();//rfid.asset_id
-                txtRFIDComments.Text = dataRow.ItemArray[5].ToString();//rfid.comments
-                //asset table data
-                txtAssetIDAsset.Text = dataRow.ItemArray[6].ToString();//asset.id
-                txtLaneDirection.Text = dataRow.ItemArray[7].ToString();//asset.lane_direction
-                txtPositionCode.Text = dataRow.ItemArray[8].ToString();//asset.position_code
-                txtRouteSuffix.Text = dataRow.ItemArray[9].ToString();//asset.route_suffix
-                txtMarker.Text = dataRow.ItemArray[10].ToString();//asset.marker
-                txtCity.Text = dataRow.ItemArray[11].ToString();//asset.city
-                txtCounty.Text = dataRow.ItemArray[12].ToString();//asset.county
-                txtDistrict.Text = dataRow.ItemArray[13].ToString();//asset.district
-                txtStreetName.Text = dataRow.ItemArray[14].ToString();//asset.streetname
-                txtMutcdCode.Text = dataRow.ItemArray[15].ToString();//asset.mutcd_code
-                txtRetired.Text = dataRow.ItemArray[16].ToString();//asset.retired
-                txtReplaced.Text = dataRow.ItemArray[17].ToString();//asset.replaced
-                txtSignAge.Text = dataRow.ItemArray[18].ToString();//asset.sign_age
-                txtTwnTid.Text = dataRow.ItemArray[19].ToString();//asset.twn_tid
-                txtTwnMi.Text = dataRow.ItemArray[20].ToString();//asset.twn_mi
-                txtQcFlag.Text = dataRow.ItemArray[21].ToString();//asset.qc_flag
-                txtMinTwnFm.Text = dataRow.ItemArray[22].ToString();//asset.min_twn_fm
-                txtMaxTwnTm.Text = dataRow.ItemArray[23].ToString();//asset.max_twn_tm
-                txtSrSid.Text = dataRow.ItemArray[24].ToString();//asset.sr_sid
-                txtSignHeight.Text = dataRow.ItemArray[25].ToString();//asset.sign_height
-                txtSignWidth.Text = dataRow.ItemArray[26].ToString();//asset.sign_width
-
-
+                GetRequestVTransREST(); //TEST GET REQUEST
+                return true;
             }
 
-            if(txtRFIDDatabaseID.Text == "")
+            else
             {
-                return false;
-            }
 
-            return true;
+
+                //TESTING DATABASE ACCESS
+                rfid.epc = txtCurrentEpc.Text;
+                DataTable dt = rfid.Select(rfid);
+                dgTagResults.DataContext = dt;
+
+                //Clear Leftover Data
+                ClearRFID();
+                ClearAsset();
+
+                //Putting data into datafields.
+                foreach (DataRow dataRow in dt.Rows)
+                {
+                    //rfid table data
+                    txtRFIDDatabaseID.Text = dataRow.ItemArray[0].ToString(); //rfid.id
+                                                                              //txtCurrentEpc.Text = dataRow.ItemArray[1].ToString(); //rfid.epc here for reference not LIVE. Epc retrieved from Tag Results.
+                    txtRFIDManufactureDate.Text = dataRow.ItemArray[2].ToString();//rfid.manufacture_date
+                    txtRFIDInstallationDate.Text = dataRow.ItemArray[3].ToString();//rfid.installation_date
+                    txtAssetID.Text = dataRow.ItemArray[4].ToString();//rfid.asset_id
+                    txtRFIDComments.Text = dataRow.ItemArray[5].ToString();//rfid.comments
+                                                                           //asset table data
+                    txtAssetIDAsset.Text = dataRow.ItemArray[6].ToString();//asset.id
+                    txtLaneDirection.Text = dataRow.ItemArray[7].ToString();//asset.lane_direction
+                    txtPositionCode.Text = dataRow.ItemArray[8].ToString();//asset.position_code
+                    txtRouteSuffix.Text = dataRow.ItemArray[9].ToString();//asset.route_suffix
+                    txtMarker.Text = dataRow.ItemArray[10].ToString();//asset.marker
+                    txtCity.Text = dataRow.ItemArray[11].ToString();//asset.city
+                    txtCounty.Text = dataRow.ItemArray[12].ToString();//asset.county
+                    txtDistrict.Text = dataRow.ItemArray[13].ToString();//asset.district
+                    txtStreetName.Text = dataRow.ItemArray[14].ToString();//asset.streetname
+                    txtMutcdCode.Text = dataRow.ItemArray[15].ToString();//asset.mutcd_code
+                    txtRetired.Text = dataRow.ItemArray[16].ToString();//asset.retired
+                    txtReplaced.Text = dataRow.ItemArray[17].ToString();//asset.replaced
+                    txtSignAge.Text = dataRow.ItemArray[18].ToString();//asset.sign_age
+                    txtTwnTid.Text = dataRow.ItemArray[19].ToString();//asset.twn_tid
+                    txtTwnMi.Text = dataRow.ItemArray[20].ToString();//asset.twn_mi
+                    txtQcFlag.Text = dataRow.ItemArray[21].ToString();//asset.qc_flag
+                    txtMinTwnFm.Text = dataRow.ItemArray[22].ToString();//asset.min_twn_fm
+                    txtMaxTwnTm.Text = dataRow.ItemArray[23].ToString();//asset.max_twn_tm
+                    txtSrSid.Text = dataRow.ItemArray[24].ToString();//asset.sr_sid
+                    txtSignHeight.Text = dataRow.ItemArray[25].ToString();//asset.sign_height
+                    txtSignWidth.Text = dataRow.ItemArray[26].ToString();//asset.sign_width
+
+
+                }
+
+                if (txtRFIDDatabaseID.Text == "")
+                {
+                    return false;
+                }
+
+                return true;
+            }
         }
 
         /// <summary>
@@ -813,9 +825,10 @@ namespace ThingMagic.URA2
 
         private void GetRequestVTransREST()
         {
+            HttpWebRequest requestAsset = (HttpWebRequest)WebRequest.Create(
+                "https://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/FeatureServer/1/" +
 
-            HttpWebRequest requestAsset = (HttpWebRequest)WebRequest.Create("https://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/" +
-                "FeatureServer/1/query?where=&objectIds=1&time=&geometry=&geometryType=esriGeome" +
+                "query?where=&objectIds=2&time=&geometry=&geometryType=esriGeome" +
                 "tryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit" +
                 "_Foot&relationParam=&outFields=OBJECTID%2CSignMainGeneralOID%2CID%2CLaneDirecti" +
                 "on%2CPositionCode%2CRouteSuffix%2CMarker%2CCity%2CCounty%2CDistrict%2CSTREETNAM" +
@@ -826,12 +839,13 @@ namespace ThingMagic.URA2
                 "xtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&retur" +
                 "nZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&retur" +
                 "nTrueCurves=false&sqlFormat=none&f=json");
+
             requestAsset.Method = "Get";
             requestAsset.ContentType = "application/json";
 
             HttpWebResponse responseAsset = (HttpWebResponse)requestAsset.GetResponse();
 
-            
+
 
             string responseStr = "";
 
@@ -846,15 +860,30 @@ namespace ThingMagic.URA2
             dynamic responseDict = serializer.Deserialize<dynamic>(responseStr);
 
 
+            Console.WriteLine("start test----------------------------------------------------");
 
-            //Console.WriteLine(responseStr);
-
-
-            foreach (KeyValuePair<string, dynamic> kvp in responseDict)
+            foreach (KeyValuePair<string, dynamic> kvp in responseDict["features"][0]["attributes"])
             {
-                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+                if (kvp.Value == null)
+                {
+                    Console.WriteLine("null");
+                }
+                else
+                {
+                    Console.WriteLine(kvp.Value);
+
+                }
+
+
             }
+
+            Console.WriteLine("end test----------------------------------------------------");
+
         }
 
+        private void ChkBoxREST_Checked(object sender, RoutedEventArgs e)
+        {
+            chkBoxREST.IsChecked = true;
+        }
     }
 }
