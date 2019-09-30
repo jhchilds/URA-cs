@@ -89,45 +89,45 @@
             <DataGrid x:Name="dgTagResults" ItemsSource="{Binding}" Height="100" Canvas.Top="838" Width="797" Canvas.Left="10"/>
             <TextBox x:Name="txtAssetIDAsset" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="27" Width="204" IsReadOnly="True"/>
             <Label x:Name="lblAssetIDAsset" Content="Asset ID" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="395" Canvas.Top="27" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtLaneDirection" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="55" Width="204" IsReadOnly="True"/>
+            <TextBox x:Name="txtLaneDirection" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="55" Width="204"/>
             <Label x:Name="lblLaneDirection" Content="Lane Direction" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="395" Canvas.Top="55" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtPositionCode" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="83" Width="202" IsReadOnly="True"/>
+            <TextBox x:Name="txtPositionCode" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="83" Width="202"/>
             <Label x:Name="lblPositionCode" Content="Position Code" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="395" Canvas.Top="83" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtRouteSuffix" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="111" Width="202" IsReadOnly="True"/>
+            <TextBox x:Name="txtRouteSuffix" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="111" Width="202"/>
             <Label x:Name="lblRouteSuffix" Content="Route Suffix" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="395" Canvas.Top="111" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtCity" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="167" Width="202" IsReadOnly="True"/>
+            <TextBox x:Name="txtCity" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="167" Width="202"/>
             <Label x:Name="lblCity" Content="City" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="395" Canvas.Top="167" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtMarker" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="139" Width="202" IsReadOnly="True"/>
+            <TextBox x:Name="txtMarker" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="139" Width="202"/>
             <Label x:Name="lblMarker" Content="Marker" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="395" Canvas.Top="139" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtStreetName" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="251" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtStreetName" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="251" Width="202" />
             <Label x:Name="lblStreetName" Content="Street Name" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="395" Canvas.Top="251" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtDistrict" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="223" Width="202" IsReadOnly="True"/>
+            <TextBox x:Name="txtDistrict" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="223" Width="202"/>
             <Label x:Name="lblDistrict" Content="District" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="395" Canvas.Top="223" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtCounty" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="195" Width="202" IsReadOnly="True"/>
+            <TextBox x:Name="txtCounty" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="195" Width="202"/>
             <Label x:Name="lblCounty" Content="County" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="395" Canvas.Top="195" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtMutcdCode" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="279" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtMutcdCode" Height="23" Canvas.Left="501" TextWrapping="Wrap" Canvas.Top="279" Width="202" />
             <Label x:Name="lblMutcdCode" Content="MUTCD Code" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="395" Canvas.Top="279" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtRetired" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="307" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtRetired" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="307" Width="202" />
             <Label x:Name="lblRetired" Content="Retired" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="307" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtSignAge" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="363" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtSignAge" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="363" Width="202" />
             <Label x:Name="lblSignAge" Content="Sign Age" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="363" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtTwnTid" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="391" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtTwnTid" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="391" Width="202" />
             <Label x:Name="lblTwnTid" Content="Twn Tid" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="391" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtTwnMi" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="419" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtTwnMi" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="419" Width="202" />
             <Label x:Name="lblTwnMi" Content="Twn Mi" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="419" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtQcFlag" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="447" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtQcFlag" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="447" Width="202" />
             <Label x:Name="lblQcFlag" Content="Qc Flag" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="447" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtMinTwnFm" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="475" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtMinTwnFm" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="475" Width="202" />
             <Label x:Name="lblMinTwnFm" Content="Min Twn Fm" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="475" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtMaxTwnTm" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="503" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtMaxTwnTm" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="503" Width="202" />
             <Label x:Name="lblMaxTwnTm" Content="Max Twn Tm" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="503" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtSrSid" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="531" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtSrSid" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="531" Width="202" />
             <Label x:Name="lblSrSid" Content="Sr Sid" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="531" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtSignHeight" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="559" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtSignHeight" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="559" Width="202" />
             <Label x:Name="lblSignHeight" Content="Sign Height" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="559" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtSignWidth" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="587" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtSignWidth" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="587" Width="202" />
             <Label x:Name="lblSignWidth" Content="Sign Width" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="587" Height="28" FontSize="12" Foreground="Black"/>
-            <TextBox x:Name="txtReplaced" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="335" Width="202" IsReadOnly="True" />
+            <TextBox x:Name="txtReplaced" Height="23" Canvas.Left="503" TextWrapping="Wrap" Canvas.Top="335" Width="202" />
             <Label x:Name="lblReplaced" Content="Replaced" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="396" Canvas.Top="335" Height="28" FontSize="12" Foreground="Black"/>
             <CheckBox x:Name="chkBoxREST" Content="USE VTRANS REST API" Canvas.Left="475" Canvas.Top="-37" Checked="ChkBoxREST_Checked"/>
         </Canvas>

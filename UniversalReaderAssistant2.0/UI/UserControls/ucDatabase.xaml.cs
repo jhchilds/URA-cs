@@ -733,56 +733,72 @@ namespace ThingMagic.URA2
         /// <param name="e"></param>
         private void BtnAssetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            try
+
+            if (chkBoxREST.IsChecked == true)
             {
-                //Retrieve Data from the Fields
-                asset.id = int.Parse(txtAssetIDAsset.Text);
-                asset.lane_direction = txtLaneDirection.Text; 
-                asset.position_code = txtPositionCode.Text;
-                asset.route_suffix = txtRouteSuffix.Text;
-                asset.marker = float.Parse(txtMarker.Text);
-                asset.city = txtCity.Text;
-                asset.county = txtCounty.Text;
-                asset.district = int.Parse(txtDistrict.Text);
-                asset.streetname = txtStreetName.Text;
-                asset.mutcd_code = txtMutcdCode.Text;
-                asset.retired = int.Parse(txtRetired.Text);
-                asset.replaced = DateTime.Parse(txtReplaced.Text);
-                asset.sign_age = int.Parse(txtSignAge.Text);
-                asset.twn_tid = txtTwnTid.Text;
-                asset.twn_mi = float.Parse(txtTwnMi.Text);
-                asset.qc_flag = int.Parse(txtQcFlag.Text);
-                asset.min_twn_fm = float.Parse(txtMinTwnFm.Text);
-                asset.max_twn_tm = float.Parse(txtMaxTwnTm.Text);
-                asset.sr_sid = txtSrSid.Text;
-                asset.sign_height = int.Parse(txtSignHeight.Text);
-                asset.sign_width = int.Parse(txtSignWidth.Text);
+                if (UpdateSignTableREST())
+                {
+                    MessageBox.Show("Sign Updated Successfult with REST API");
+                }
 
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Incorrect format in data fields.");
-            }
-
-
-            //Update Data in Database
-            bool success = asset.Update(asset);
-            if (success)
-            {
-                //Load Data in Data Grid View
-                DataTable dt = rfid.Select(rfid);
-                dgTagResults.DataContext = dt;
-                //Update was successful
-                MessageBox.Show("Asset has been updated successfully in Database");
-
+                else
+                {
+                    MessageBox.Show("ERROR: REST API Error");
+                }
             }
             else
             {
-                //Update failed
-                MessageBox.Show("Failed to update Asset.");
+                try
+                {
+                    //Retrieve Data from the Fields
+                    asset.id = int.Parse(txtAssetIDAsset.Text);
+                    asset.lane_direction = txtLaneDirection.Text;
+                    asset.position_code = txtPositionCode.Text;
+                    asset.route_suffix = txtRouteSuffix.Text;
+                    asset.marker = float.Parse(txtMarker.Text);
+                    asset.city = txtCity.Text;
+                    asset.county = txtCounty.Text;
+                    asset.district = int.Parse(txtDistrict.Text);
+                    asset.streetname = txtStreetName.Text;
+                    asset.mutcd_code = txtMutcdCode.Text;
+                    asset.retired = int.Parse(txtRetired.Text);
+                    asset.replaced = DateTime.Parse(txtReplaced.Text);
+                    asset.sign_age = int.Parse(txtSignAge.Text);
+                    asset.twn_tid = txtTwnTid.Text;
+                    asset.twn_mi = float.Parse(txtTwnMi.Text);
+                    asset.qc_flag = int.Parse(txtQcFlag.Text);
+                    asset.min_twn_fm = float.Parse(txtMinTwnFm.Text);
+                    asset.max_twn_tm = float.Parse(txtMaxTwnTm.Text);
+                    asset.sr_sid = txtSrSid.Text;
+                    asset.sign_height = int.Parse(txtSignHeight.Text);
+                    asset.sign_width = int.Parse(txtSignWidth.Text);
 
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Incorrect format in data fields.");
+                }
+
+
+                //Update Data in Database
+                bool success = asset.Update(asset);
+                if (success)
+                {
+                    //Load Data in Data Grid View
+                    DataTable dt = rfid.Select(rfid);
+                    dgTagResults.DataContext = dt;
+                    //Update was successful
+                    MessageBox.Show("Asset has been updated successfully in Database");
+
+                }
+                else
+                {
+                    //Update failed
+                    MessageBox.Show("Failed to update Asset.");
+
+                }
             }
         }
         /// <summary>
@@ -910,8 +926,6 @@ namespace ThingMagic.URA2
 
                     }
 
-                    JavaScriptSerializer serializerTag = new JavaScriptSerializer();
-
                     dynamic responseDictSign = serializer.Deserialize<dynamic>(responseStrSign);
 
                     dynamic attributeDictSign = responseDictSign["features"][0]["attributes"];
@@ -961,5 +975,82 @@ namespace ThingMagic.URA2
         {
             chkBoxREST.IsChecked = true;
         }
+
+        private bool UpdateSignTableREST()
+        {
+            var request = (HttpWebRequest)WebRequest.Create("http://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/FeatureServer/1/applyEdits");
+
+            var postData = "adds=" + Uri.EscapeDataString("");
+            postData += "&updates=" + Uri.EscapeDataString(" [{\"attributes\":{" +
+                                        "\"OBJECTID\":"+ txtAssetIDAsset.Text +"," +
+                                        "\"LaneDirection\":\""+ txtLaneDirection.Text +"\"," +
+                                        "\"PositionCode\":\"" + txtPositionCode.Text + "\"," +
+                                        "\"RouteSuffix\":" + txtRouteSuffix.Text + "," +
+                                        "\"Marker\":"+ txtMarker.Text + "," +
+                                        "\"City\":\""+ txtCity.Text +"\"," +
+                                        "\"County\":\""+txtCounty.Text+"\"," +
+                                        "\"District\":\""+txtDistrict.Text+"\"," +
+                                        "\"STREETNAME\":\""+txtStreetName.Text+"\"," +
+                                        "\"MUTCDCode\":\""+ txtMutcdCode.Text +"\"," +
+                                        "\"Retired\":"+txtRetired.Text+"," +
+                                        "\"Replaced\":"+txtReplaced.Text+"," +
+                                        "\"SignAge\":"+txtSignAge.Text+"," +
+                                        "\"TWN_TID\":\""+txtTwnTid.Text+"\"," +
+                                        "\"TWN_MI\":"+ float.Parse(txtTwnMi.Text)+" ," +
+                                        "\"QCFLAG\":"+txtQcFlag.Text+" ," +
+                                        "\"MIN_TWN_FMI\":"+txtMinTwnFm.Text+" ," +
+                                        "\"MAX_TWN_FMI\":"+txtMaxTwnTm.Text+" ," +
+                                        "\"SR_SID\": \""+txtSrSid.Text+" \"," +
+                                        "\"SignHeight\":"+txtSignHeight.Text+"," +
+                                        "\"SignWidth\":"+txtSignWidth.Text+"}}]");
+
+            postData += "&deletes=" + Uri.EscapeDataString("");
+            postData += "&gdbVersion=" + Uri.EscapeDataString("");
+            postData += "&rollbackOnFailure=" + Uri.EscapeDataString("true");
+            postData += "&useGlobalIds=" + Uri.EscapeDataString("false");
+            postData += "&returnEditMoment=" + Uri.EscapeDataString("false");
+            postData += "&trueCurveClient=" + Uri.EscapeDataString("true");
+            postData += "&attachments=" + Uri.EscapeDataString("");
+            postData += "&f=" + Uri.EscapeDataString("json");
+
+
+            var data = Encoding.ASCII.GetBytes(postData);
+
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            dynamic responseDict = serializer.Deserialize<dynamic>(responseString);
+
+            try
+            {
+                if (responseDict["updateResults"][0]["success"] == true)
+                {
+                    return true;
+                }
+            }
+            catch(Exception e)
+            {
+                return false;
+                MessageBox.Show("POST Failed");
+            }
+
+            return false;
+
+            
+        }
+
+
     }
 }
