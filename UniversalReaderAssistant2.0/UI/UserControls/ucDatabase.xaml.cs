@@ -537,40 +537,59 @@ namespace ThingMagic.URA2
 
         private void BtnRFIDInsert_Click(object sender, RoutedEventArgs e)
         {
-            //Get the value from input fields 
-            try
-            {
-                rfid.epc = txtCurrentEpc.Text; //Text box has type String 
-                rfid.manufacture_date = txtRFIDManufactureDate.Text;
-                rfid.installation_date = txtRFIDInstallationDate.Text;
-                rfid.asset_id = int.Parse(txtAssetID.Text);
-                rfid.comments = txtRFIDComments.Text;
 
-            }
-            catch (Exception ex)
+            if (chkBoxREST.IsChecked == true)
             {
-                MessageBox.Show("Incorrect format in data fields.");
+                if (InsertTagREST())
+                {
+                    MessageBox.Show("Tag Inserted Successfully with REST API");
+                }
 
+                else
+                {
+                    MessageBox.Show("ERROR: REST API Error");
+                }
             }
 
-
-
-            //Insert Data into database
-            bool success = rfid.Insert(rfid);
-            if (success)
-            {
-                //Successfully Inserted
-                MessageBox.Show("New Tag Inserted Successfully");
-                
-            }
             else
             {
-                //FAILED Insertion
-                MessageBox.Show("Failed to add new Tag. Try Again.");
+
+
+                //Get the value from input fields 
+                try
+                {
+                    rfid.epc = txtCurrentEpc.Text; //Text box has type String 
+                    rfid.manufacture_date = txtRFIDManufactureDate.Text;
+                    rfid.installation_date = txtRFIDInstallationDate.Text;
+                    rfid.asset_id = int.Parse(txtAssetID.Text);
+                    rfid.comments = txtRFIDComments.Text;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Incorrect format in data fields.");
+
+                }
+
+
+
+                //Insert Data into database
+                bool success = rfid.Insert(rfid);
+                if (success)
+                {
+                    //Successfully Inserted
+                    MessageBox.Show("New Tag Inserted Successfully");
+
+                }
+                else
+                {
+                    //FAILED Insertion
+                    MessageBox.Show("Failed to add new Tag. Try Again.");
+                }
+                //Load Data in Data Grid View
+                DataTable dt = rfid.Select(rfid);
+                dgTagResults.DataContext = dt;
             }
-            //Load Data in Data Grid View
-            DataTable dt = rfid.Select(rfid);
-            dgTagResults.DataContext = dt;
 
         }
         /// <summary>
@@ -581,39 +600,56 @@ namespace ThingMagic.URA2
         private void BtnRFIDUpdate_Click(object sender, RoutedEventArgs e)
         {
 
-            try
+            if (chkBoxREST.IsChecked == true)
             {
-                //Retrieve Data from the Fields
-                rfid.id = int.Parse(txtRFIDDatabaseID.Text);
-                rfid.epc = txtCurrentEpc.Text;
-                rfid.manufacture_date = txtRFIDManufactureDate.Text;
-                rfid.installation_date = txtRFIDInstallationDate.Text;
-                rfid.asset_id = int.Parse(txtAssetID.Text);
-                rfid.comments = txtRFIDComments.Text;
+                if (UpdateTagTableREST())
+                {
+                    MessageBox.Show("Tag Updated Successfull with REST API");
+                }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Incorrect format in data fields.");
-            }
-
-
-            //Update Data in Database
-            bool success = rfid.Update(rfid);
-            if (success)
-            {
-                //Load Data in Data Grid View
-                DataTable dt = rfid.Select(rfid);
-                dgTagResults.DataContext = dt;
-                //Update was successful
-                MessageBox.Show("Tag has been updated successfully");
-
+                else
+                {
+                    MessageBox.Show("ERROR: REST API Error");
+                }
             }
             else
             {
-                //Update failed
-                MessageBox.Show("Failed to update tag.");
 
+
+                try
+                {
+                    //Retrieve Data from the Fields
+                    rfid.id = int.Parse(txtRFIDDatabaseID.Text);
+                    rfid.epc = txtCurrentEpc.Text;
+                    rfid.manufacture_date = txtRFIDManufactureDate.Text;
+                    rfid.installation_date = txtRFIDInstallationDate.Text;
+                    rfid.asset_id = int.Parse(txtAssetID.Text);
+                    rfid.comments = txtRFIDComments.Text;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Incorrect format in data fields.");
+                }
+
+
+                //Update Data in Database
+                bool success = rfid.Update(rfid);
+                if (success)
+                {
+                    //Load Data in Data Grid View
+                    DataTable dt = rfid.Select(rfid);
+                    dgTagResults.DataContext = dt;
+                    //Update was successful
+                    MessageBox.Show("Tag has been updated successfully");
+
+                }
+                else
+                {
+                    //Update failed
+                    MessageBox.Show("Failed to update tag.");
+
+                }
             }
 
         }
@@ -635,36 +671,56 @@ namespace ThingMagic.URA2
         /// <param name="e"></param>
         private void BtnRFIDDelete_Click(object sender, RoutedEventArgs e)
         {
-            try
+
+            if (chkBoxREST.IsChecked == true)
             {
-                //Retrieve data from Fields
-                rfid.id = int.Parse(txtRFIDDatabaseID.Text);
+                if (DeleteTagREST())
+                {
+                    MessageBox.Show("Tag Deleted Successfully with REST API");
+                }
 
+                else
+                {
+                    MessageBox.Show("ERROR: REST API Error");
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Data fields not in correct format.");
 
-            }
-            bool success = rfid.Delete(rfid);
-            if (success)
-            {
-
-                //Load Data in Data Grid View
-                DataTable dt = rfid.Select(rfid);
-                dgTagResults.DataContext = dt;
-                //Successful Deletion
-                MessageBox.Show("Tag has been deleted successfully");
-                ClearRFID();
-                ClearAsset();
-
-
-            }
             else
             {
-                //Failed Deletion
-                MessageBox.Show("Failed deletion. Try again.");
 
+
+
+                try
+                {
+                    //Retrieve data from Fields
+                    rfid.id = int.Parse(txtRFIDDatabaseID.Text);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Data fields not in correct format.");
+
+                }
+                bool success = rfid.Delete(rfid);
+                if (success)
+                {
+
+                    //Load Data in Data Grid View
+                    DataTable dt = rfid.Select(rfid);
+                    dgTagResults.DataContext = dt;
+                    //Successful Deletion
+                    MessageBox.Show("Tag has been deleted successfully");
+                    ClearRFID();
+                    ClearAsset();
+
+
+                }
+                else
+                {
+                    //Failed Deletion
+                    MessageBox.Show("Failed deletion. Try again.");
+
+                }
             }
         }
 
@@ -672,58 +728,73 @@ namespace ThingMagic.URA2
 
         private void BtnAssetInsert_Click(object sender, RoutedEventArgs e)
         {
-
-            //Get the value from input fields 
-            try
+            if (chkBoxREST.IsChecked == true)
             {
-                
-                asset.lane_direction = txtLaneDirection.Text; //Text box has type String 
-                asset.position_code = txtPositionCode.Text;
-                asset.route_suffix = txtRouteSuffix.Text;
-                asset.marker = float.Parse(txtMarker.Text);
-                asset.city = txtCity.Text;
-                asset.county = txtCounty.Text;
-                asset.district = int.Parse(txtDistrict.Text);
-                asset.streetname = txtStreetName.Text;
-                asset.mutcd_code = txtMutcdCode.Text;
-                asset.retired = int.Parse(txtRetired.Text);
-                asset.replaced = DateTime.Parse(txtReplaced.Text);
-                asset.sign_age = int.Parse(txtSignAge.Text);
-                asset.twn_tid = txtTwnTid.Text;
-                asset.twn_mi = float.Parse(txtTwnMi.Text);
-                asset.qc_flag = int.Parse(txtQcFlag.Text);
-                asset.min_twn_fm = float.Parse(txtMinTwnFm.Text);
-                asset.max_twn_tm = float.Parse(txtMaxTwnTm.Text);
-                asset.sr_sid = txtSrSid.Text;
-                asset.sign_height = int.Parse(txtSignHeight.Text);
-                asset.sign_width = int.Parse(txtSignWidth.Text);
-             
+                if (InsertSignREST())
+                {
+                    MessageBox.Show("Asset Inserted Successfully with REST API");
+                }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Incorrect format in data fields.");
-
+                else
+                {
+                    MessageBox.Show("ERROR: REST API Error");
+                }
             }
 
-
-
-            //Insert Data into database
-            bool success = asset.Insert(asset);
-            if (success)
-            {
-                //Successfully Inserted
-                MessageBox.Show("New Asset Inserted Successfully into Database");
-
-            }
             else
             {
-                //FAILED Insertion
-                MessageBox.Show("Failed to add new Asset to database.");
+
+
+                //Get the value from input fields 
+                try
+                {
+
+                    asset.lane_direction = txtLaneDirection.Text; //Text box has type String 
+                    asset.position_code = txtPositionCode.Text;
+                    asset.route_suffix = txtRouteSuffix.Text;
+                    asset.marker = float.Parse(txtMarker.Text);
+                    asset.city = txtCity.Text;
+                    asset.county = txtCounty.Text;
+                    asset.district = int.Parse(txtDistrict.Text);
+                    asset.streetname = txtStreetName.Text;
+                    asset.mutcd_code = txtMutcdCode.Text;
+                    asset.retired = int.Parse(txtRetired.Text);
+                    asset.replaced = DateTime.Parse(txtReplaced.Text);
+                    asset.sign_age = int.Parse(txtSignAge.Text);
+                    asset.twn_tid = txtTwnTid.Text;
+                    asset.twn_mi = float.Parse(txtTwnMi.Text);
+                    asset.qc_flag = int.Parse(txtQcFlag.Text);
+                    asset.min_twn_fm = float.Parse(txtMinTwnFm.Text);
+                    asset.max_twn_tm = float.Parse(txtMaxTwnTm.Text);
+                    asset.sr_sid = txtSrSid.Text;
+                    asset.sign_height = int.Parse(txtSignHeight.Text);
+                    asset.sign_width = int.Parse(txtSignWidth.Text);
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Incorrect format in data fields.");
+
+                }
+
+
+
+                //Insert Data into database
+                bool success = asset.Insert(asset);
+                if (success)
+                {
+                    //Successfully Inserted
+                    MessageBox.Show("New Asset Inserted Successfully into Database");
+
+                }
+                else
+                {
+                    //FAILED Insertion
+                    MessageBox.Show("Failed to add new Asset to database.");
+                }
             }
-            //Load Data in Data Grid View
-            //DataTable dt = asset.Select(asset); //Uncomment only if need to select asset info individually, not joined with a tag
-            //dgTagResults.DataContext = dt;
+            
 
         }
         /// <summary>
@@ -813,36 +884,55 @@ namespace ThingMagic.URA2
 
         private void BtnAssetDelete_Click(object sender, RoutedEventArgs e)
         {
-            try
+
+            if (chkBoxREST.IsChecked == true)
             {
-                //Retrieve data from Fields
-                asset.id = int.Parse(txtAssetIDAsset.Text);
+                if (DeleteAssetREST())
+                {
+                    MessageBox.Show("Asset Deleted Successfully with REST API");
+                }
 
+                else
+                {
+                    MessageBox.Show("ERROR: REST API Error");
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Data fields not in correct format.");
 
-            }
-            bool success = asset.Delete(asset);
-            if (success)
-            {
-
-                //Load Data in Data Grid View
-                //DataTable dt = asset.Select(asset);
-                //dgTagResults.DataContext = dt; //Uncomment if need to display Asset seperately from RFID, Currently Joined
-                //Successful Deletion
-                MessageBox.Show("Tag has been deleted successfully");
-                ClearRFID();
-                ClearAsset();
-
-
-            }
             else
             {
-                //Failed Deletion
-                MessageBox.Show("Failed deletion. Try again.");
 
+
+                try
+                {
+                    //Retrieve data from Fields
+                    asset.id = int.Parse(txtAssetIDAsset.Text);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Data fields not in correct format.");
+
+                }
+                bool success = asset.Delete(asset);
+                if (success)
+                {
+
+                    //Load Data in Data Grid View
+                    //DataTable dt = asset.Select(asset);
+                    //dgTagResults.DataContext = dt; //Uncomment if need to display Asset seperately from RFID, Currently Joined
+                    //Successful Deletion
+                    MessageBox.Show("Tag has been deleted successfully");
+                    ClearRFID();
+                    ClearAsset();
+
+
+                }
+                else
+                {
+                    //Failed Deletion
+                    MessageBox.Show("Failed deletion. Try again.");
+
+                }
             }
         }
 
@@ -884,14 +974,15 @@ namespace ThingMagic.URA2
                 dynamic responseDictTag = serializer.Deserialize<dynamic>(responseStrTag);
 
                 dynamic attributeDictTag = responseDictTag["features"][0]["attributes"];
-                
+
                 //rfid table data
+                txtboxRFIDObjectID.Text = attributeDictTag["OBJECTID"].ToString();
                 txtRFIDDatabaseID.Text = attributeDictTag["id"].ToString(); //rfid.id
                 txtRFIDManufactureDate.Text = attributeDictTag["manufacture_date"].ToString();//rfid.manufacture_date
                 txtRFIDInstallationDate.Text = attributeDictTag["installation_date"].ToString();//rfid.installation_date
                 txtAssetID.Text = attributeDictTag["asset_id"].ToString();//rfid.asset_id
                 txtRFIDComments.Text = attributeDictTag["comments"].ToString();//rfid.comments
-
+                
                 ///<summary>
                 ///If there is an asset associated with a tag, display information from Asset table as well.
                 ///</summary>
@@ -1051,6 +1142,305 @@ namespace ThingMagic.URA2
             
         }
 
+        private bool UpdateTagTableREST()
+        {
+
+            var request = (HttpWebRequest)WebRequest.Create("http://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/FeatureServer/2/applyEdits");
+
+            var postData = "adds=" + Uri.EscapeDataString("");
+            postData += "&updates=" + Uri.EscapeDataString(" [{\"attributes\":{" +
+                                        "\"OBJECTID\": "+txtboxRFIDObjectID.Text+"," +
+                                        "\"id\":\"" + txtRFIDDatabaseID.Text + "\"," +
+                                        "\"epc\":\"" + txtCurrentEpc.Text + "\"," +
+                                        "\"manufacture_date\":" + txtRFIDManufactureDate.Text + "," +
+                                        "\"installation_date\":" + txtRFIDInstallationDate.Text + "," +
+                                        "\"asset_id\":\"" + txtAssetID.Text + "\"," +
+                                        "\"comments\":\"" + txtCounty.Text + "\"," +
+                                         "}}]");
+
+            postData += "&deletes=" + Uri.EscapeDataString("");
+            postData += "&gdbVersion=" + Uri.EscapeDataString("");
+            postData += "&rollbackOnFailure=" + Uri.EscapeDataString("true");
+            postData += "&useGlobalIds=" + Uri.EscapeDataString("false");
+            postData += "&returnEditMoment=" + Uri.EscapeDataString("false");
+            postData += "&trueCurveClient=" + Uri.EscapeDataString("true");
+            postData += "&attachments=" + Uri.EscapeDataString("");
+            postData += "&f=" + Uri.EscapeDataString("json");
+
+
+            var data = Encoding.ASCII.GetBytes(postData);
+
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            dynamic responseDict = serializer.Deserialize<dynamic>(responseString);
+
+            try
+            {
+                if (responseDict["updateResults"][0]["success"] == true)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+                MessageBox.Show("POST Failed");
+            }
+
+            return false;
+        }
+
+
+
+        private bool DeleteAssetREST()
+        {
+            var request = (HttpWebRequest)WebRequest.Create("http://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/FeatureServer/1/applyEdits");
+
+            var postData = "adds=" + Uri.EscapeDataString("");
+            postData += "&deletes=" + Uri.EscapeDataString("[" + txtAssetIDAsset.Text + "]");
+            postData += "&updates=" + Uri.EscapeDataString("");
+            postData += "&gdbVersion=" + Uri.EscapeDataString("");
+            postData += "&rollbackOnFailure=" + Uri.EscapeDataString("true");
+            postData += "&useGlobalIds=" + Uri.EscapeDataString("false");
+            postData += "&returnEditMoment=" + Uri.EscapeDataString("false");
+            postData += "&trueCurveClient=" + Uri.EscapeDataString("true");
+            postData += "&attachments=" + Uri.EscapeDataString("");
+            postData += "&f=" + Uri.EscapeDataString("json");
+
+
+            var data = Encoding.ASCII.GetBytes(postData);
+
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            dynamic responseDict = serializer.Deserialize<dynamic>(responseString);
+
+            try
+            {
+                if (responseDict["deleteResults"][0]["success"] == true)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+                MessageBox.Show("POST Failed");
+            }
+
+            return false;
+        }
+
+        private bool DeleteTagREST()
+        {
+            var request = (HttpWebRequest)WebRequest.Create("http://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/FeatureServer/2/applyEdits");
+
+            var postData = "adds=" + Uri.EscapeDataString("");
+            postData += "&deletes=" + Uri.EscapeDataString("[" + txtboxRFIDObjectID.Text + "]");
+            postData += "&updates=" + Uri.EscapeDataString("");
+            postData += "&gdbVersion=" + Uri.EscapeDataString("");
+            postData += "&rollbackOnFailure=" + Uri.EscapeDataString("true");
+            postData += "&useGlobalIds=" + Uri.EscapeDataString("false");
+            postData += "&returnEditMoment=" + Uri.EscapeDataString("false");
+            postData += "&trueCurveClient=" + Uri.EscapeDataString("true");
+            postData += "&attachments=" + Uri.EscapeDataString("");
+            postData += "&f=" + Uri.EscapeDataString("json");
+
+
+            var data = Encoding.ASCII.GetBytes(postData);
+
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            dynamic responseDict = serializer.Deserialize<dynamic>(responseString);
+
+            try
+            {
+                if (responseDict["deleteResults"][0]["success"] == true)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+                MessageBox.Show("POST Failed");
+            }
+
+            return false;
+        }
+
+
+        private bool InsertSignREST()
+        {
+
+            var request = (HttpWebRequest)WebRequest.Create("http://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/FeatureServer/1/applyEdits");
+
+            var postData = "updates=" + Uri.EscapeDataString("");
+            postData += "&adds=" + Uri.EscapeDataString("[{\"attributes\":{" +
+                                      "\"SignMainGeneralOID\":\"" + "50000" + "\"," +
+                                      "\"LaneDirection\":\"" + "NB" + "\"," +
+                                      "\"PositionCode\":\"" + "M" + "\"," +
+                                      "\"RouteSuffix\":" + "null" + "," +
+                                      "\"Marker\":" + "1.53" + "," +
+                                      "\"City\":\"" + "SO BURLINGTON, 0414" + "\"," +
+                                      "\"County\":\"" + "04, CHITTENDEN" + "\"," +
+                                      "\"District\":\"" + "5" + "\"," +
+                                      "\"STREETNAME\":\"" + "0070, US7" + "\"," +
+                                      "\"MUTCDCode\":\"" + "R10-10L" + "\"," +
+                                      "\"Retired\":" + "null" + "," +
+                                      "\"Replaced\":" + "null" + "," +
+                                      "\"SignAge\":" + "null" + "," +
+                                      "\"TWN_TID\":\"" + "U007-0414" + "\"," +
+                                      "\"TWN_MI\":" + "1.53" + " ," +
+                                      "\"QCFLAG\":" + "null" + " ," +
+                                      "\"MIN_TWN_FMI\":" + "0" + " ," +
+                                      "\"MAX_TWN_FMI\":" + "1.738" + " ," +
+                                      "\"SR_SID\": \"" + "US-7" + " \"," +
+                                      "\"SignHeight\":" + "30" + "," +
+                                      "\"SignWidth\":" + "24" + "}}]");
+
+            postData += "&deletes=" + Uri.EscapeDataString("");
+            postData += "&gdbVersion=" + Uri.EscapeDataString("");
+            postData += "&rollbackOnFailure=" + Uri.EscapeDataString("true");
+            postData += "&useGlobalIds=" + Uri.EscapeDataString("false");
+            postData += "&returnEditMoment=" + Uri.EscapeDataString("false");
+            postData += "&trueCurveClient=" + Uri.EscapeDataString("true");
+            postData += "&attachments=" + Uri.EscapeDataString("");
+            postData += "&f=" + Uri.EscapeDataString("json");
+
+
+            var data = Encoding.ASCII.GetBytes(postData);
+
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            dynamic responseDict = serializer.Deserialize<dynamic>(responseString);
+            Console.WriteLine(responseString);
+            try
+            {
+                if (responseDict["addResults"][0]["success"] == true)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+                MessageBox.Show("POST Failed");
+            }
+
+            return false;
+
+        }
+
+        private bool InsertTagREST()
+        {
+            var request = (HttpWebRequest)WebRequest.Create("http://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/FeatureServer/2/applyEdits");
+
+            var postData = "updates=" + Uri.EscapeDataString("");
+            postData += "&adds=" + Uri.EscapeDataString(" [{\"attributes\":{" +
+                                        "\"id\":\"" + txtRFIDDatabaseID.Text + "\"," +
+                                        "\"epc\":\"" + txtCurrentEpc.Text + "\"," +
+                                        "\"manufacture_date\":" + txtRFIDManufactureDate.Text + "," +
+                                        "\"installation_date\":" + txtRFIDInstallationDate.Text + "," +
+                                        "\"asset_id\":\"" + txtAssetID.Text + "\"," +
+                                        "\"comments\":\"" + txtCounty.Text + "\"," +
+                                         "}}]");
+
+            postData += "&deletes=" + Uri.EscapeDataString("");
+            postData += "&gdbVersion=" + Uri.EscapeDataString("");
+            postData += "&rollbackOnFailure=" + Uri.EscapeDataString("true");
+            postData += "&useGlobalIds=" + Uri.EscapeDataString("false");
+            postData += "&returnEditMoment=" + Uri.EscapeDataString("false");
+            postData += "&trueCurveClient=" + Uri.EscapeDataString("true");
+            postData += "&attachments=" + Uri.EscapeDataString("");
+            postData += "&f=" + Uri.EscapeDataString("json");
+
+
+            var data = Encoding.ASCII.GetBytes(postData);
+
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            dynamic responseDict = serializer.Deserialize<dynamic>(responseString);
+
+            try
+            {
+                if (responseDict["addResults"][0]["success"] == true)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+                MessageBox.Show("POST Failed");
+            }
+
+            return false;
+        }
 
     }
 }
