@@ -399,17 +399,42 @@ namespace ThingMagic.URA2
         /// </summary>
         private bool retrieveData()
         {
-            ///IF we are using the VTrans REST API
+            
+            
+            //IF we are using the VTrans REST API
             if (chkBoxREST.IsChecked == true)
             {
-                //NO Tags with specified EPC In Database
-                if(GetRequestVTransREST() == false)
+                //check internet connection for sync
+                if (CheckForInternetConnection())
                 {
-                    return false;
+
+                    //If there is internet connection create replica immediately
+                    if (CreateReplica())
+                    {
+                        MessageBox.Show("Replica schema retrieved from VTrans Database for offline mode.", "Sync Workflow", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    }
+
+                    //NO Tags with specified EPC In Database
+                    if (GetRequestVTransREST() == false)
+                    {
+                        return false;
+                    }
+
+                    
+                        return true;
                 }
 
+                //When there is not Internet Connection Innitiate sync by creating a replica
+                else
+                {
+                    MessageBox.Show("No internet connection. Offline mode only.", "No Internet Connection", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+                    return false;  
+                }
                 
-                return true;
+
+                
             }
 
             else
@@ -1456,6 +1481,93 @@ namespace ThingMagic.URA2
                 return false;
             }
         }
+
+        bool CreateReplica()
+        {
+            var request = (HttpWebRequest)WebRequest.Create("http://maps.vtrans.vermont.gov/arcgis/rest/services/AMP/Asset_Signs_RFID/FeatureServer/createReplica");
+
+            var postData = "replicaName=" + Uri.EscapeDataString("cs_replica");
+            postData += "&layers=" + Uri.EscapeDataString("1,2");
+
+            postData += "&layerQueries=" + Uri.EscapeDataString(" {\"1\":{\"queryOption\": \"all\"}," +
+                                                                 " \"2\":{ \"queryOption\": \"all\"}} ");
+
+            postData += "&geometry=" + Uri.EscapeDataString("{\"xmin\" : 443285.3024000004, " +
+                                                            " \"ymin\" : 212412.71839999966, " +
+                                                             " \"xmax\" : 449453.62770000007, " +
+                                                              " \"ymax\" : 220714.47320000082, " +
+                                                               " \"spatialReference\" : { \"wkid\" : 32145} }");
+
+            postData += "&geometryType=" + Uri.EscapeDataString("esriGeometryEnvelope");
+            postData += "&inSR=" + Uri.EscapeDataString("");
+            postData += "&replicaSR=" + Uri.EscapeDataString("");
+            postData += "&transportType=" + Uri.EscapeDataString("esriTransportTypeUrl");
+            postData += "&returnAttachments=" + Uri.EscapeDataString("false");
+            postData += "&returnAttachmentsDataByUrl=" + Uri.EscapeDataString("false");
+            postData += "&attachmentsSyncDirection=" + Uri.EscapeDataString("none");
+            postData += "&async=" + Uri.EscapeDataString("false");
+            postData += "&syncModel=" + Uri.EscapeDataString("perReplica");
+            postData += "&dataFormat=" + Uri.EscapeDataString("json");
+            postData += "&replicaOptions=" + Uri.EscapeDataString("");
+            postData += "&targetType=" + Uri.EscapeDataString("client");
+            postData += "&syncDirection=" + Uri.EscapeDataString("");
+            postData += "&f=" + Uri.EscapeDataString("json");
+
+
+            var data = Encoding.ASCII.GetBytes(postData);
+
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            string jsonReplicaUrl = "";
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            dynamic responseDict = serializer.Deserialize<dynamic>(responseString);
+
+            foreach (KeyValuePair<string, object> kvp in responseDict)
+            {
+                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+                if (kvp.Key == "URL")
+                {
+                    jsonReplicaUrl = kvp.Value.ToString(); //THIS is the URL of JSON replica
+                }
+            }
+            Console.WriteLine(responseDict["transportType"]);
+
+            try
+            {
+
+                if (responseDict["transportType"] == "esriTransportTypeUrl")
+
+                {
+                    Console.WriteLine("SUCCESS REPLICA");
+
+                    return true;
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("FAILED REPLICA");
+                return false;
+            }
+
+            return false;
+        }
+
+
+
 
     }
 }
