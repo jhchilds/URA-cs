@@ -18,6 +18,7 @@ using ThingMagic;
 using ThingMagic.URA2.BL;
 using RestSharp;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace ThingMagic.URA2
 {
@@ -432,12 +433,32 @@ namespace ThingMagic.URA2
                     MessageBox.Show("No internet connection. Offline mode only.", "No Internet Connection", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
                     return false;  
-                }
-                
-
-                
+                }    
             }
 
+            else if (chkBoxOFFLINE.IsChecked == true)
+            {
+
+               
+
+
+                string jsonReplicaString = System.IO.File.ReadAllText(@"C:\Users\Joshua Childs\Desktop\URA-cs\UniversalReaderAssistant2.0\bin\x64\Debug\replica.json");
+                //Console.WriteLine(jsonReplicaString);
+
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                dynamic responseDict = serializer.Deserialize<dynamic>(jsonReplicaString);
+
+
+                foreach (KeyValuePair<string, object> kvp in responseDict)
+                {
+                    Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+
+                }
+
+
+                return false;
+            }
             else
             {
 
@@ -1091,6 +1112,8 @@ namespace ThingMagic.URA2
         private void ChkBoxREST_Checked(object sender, RoutedEventArgs e)
         {
             chkBoxREST.IsChecked = true;
+            chkBoxOFFLINE.IsChecked = false;
+
         }
 
         private bool UpdateSignTableREST()
@@ -1615,6 +1638,15 @@ namespace ThingMagic.URA2
             }
         }
 
+        private void ChkBoxOFFLINE_Checked(object sender, RoutedEventArgs e)
+        {
+            
+            chkBoxREST.IsChecked = false;
+            chkBoxOFFLINE.IsChecked = true;
+            
+            
+      
 
+        }
     }
 }

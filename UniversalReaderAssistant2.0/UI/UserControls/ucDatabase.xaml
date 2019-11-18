@@ -132,6 +132,7 @@
             <CheckBox x:Name="chkBoxREST" Content="USE VTRANS REST API" Canvas.Left="475" Canvas.Top="-37" Checked="ChkBoxREST_Checked"/>
             <TextBox x:Name="txtboxRFIDObjectID" Height="25" Canvas.Left="116" TextWrapping="Wrap" Canvas.Top="25" Width="170" IsReadOnly="True"/>
             <Label x:Name="lblRFIDObjectID" Content="OBJECTID" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="25" Height="25" FontSize="12" Foreground="Black" HorizontalAlignment="Center"/>
+            <CheckBox x:Name="chkBoxOFFLINE" Content="OFFLINE" Canvas.Left="475" Canvas.Top="-60" Checked="ChkBoxOFFLINE_Checked"/>
         </Canvas>
 
 
