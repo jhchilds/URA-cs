@@ -17,6 +17,7 @@ using System.Data;
 using ThingMagic;
 using ThingMagic.URA2.BL;
 using RestSharp;
+using Newtonsoft.Json;
 
 namespace ThingMagic.URA2
 {
@@ -1537,13 +1538,13 @@ namespace ThingMagic.URA2
 
             foreach (KeyValuePair<string, object> kvp in responseDict)
             {
-                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+                //Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
                 if (kvp.Key == "URL")
                 {
                     jsonReplicaUrl = kvp.Value.ToString(); //THIS is the URL of JSON replica
                 }
             }
-            Console.WriteLine(responseDict["transportType"]);
+            Console.WriteLine(jsonReplicaUrl);
 
             try
             {
@@ -1552,7 +1553,7 @@ namespace ThingMagic.URA2
 
                 {
                     Console.WriteLine("SUCCESS REPLICA");
-
+                    GetJsonReplicaFromURL(jsonReplicaUrl);
                     return true;
 
                 }
@@ -1566,7 +1567,53 @@ namespace ThingMagic.URA2
             return false;
         }
 
+        bool GetJsonReplicaFromURL(string jsonReplicaUrl)
+        {
+            try
+            {
 
+
+                HttpWebRequest replicaJsonSync = (HttpWebRequest)WebRequest.Create(jsonReplicaUrl);
+
+                replicaJsonSync.Method = "Get";
+                replicaJsonSync.ContentType = "application/json";
+
+                HttpWebResponse response = (HttpWebResponse)replicaJsonSync.GetResponse();
+
+
+
+                string responseStr = "";
+
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream()))
+                {
+                    responseStr = sr.ReadToEnd();
+
+                }
+
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                dynamic responseDict = serializer.Deserialize<dynamic>(responseStr);
+
+
+                foreach (KeyValuePair<string, object> kvp in responseDict)
+                {
+                    Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+                   
+                }
+
+                string json = JsonConvert.SerializeObject(responseStr.ToArray(), Formatting.Indented);
+
+                System.IO.File.WriteAllText("replica.json", responseStr);
+
+                //dynamic attributeDictTag = responseDictTag["layers"][0]["attributes"];
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+
+            }
+        }
 
 
     }
