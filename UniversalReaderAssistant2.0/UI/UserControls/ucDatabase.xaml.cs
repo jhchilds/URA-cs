@@ -454,18 +454,51 @@ namespace ThingMagic.URA2
                     if ((string)item["attributes"]["epc"] == txtCurrentEpc.Text)
                     {
                         //rfid table data
-                        txtboxRFIDObjectID.Text = item["attributes"]["OBJECTID"].ToString(); //rfid.id
-                        txtRFIDDatabaseID.Text = item["attributes"]["id"].ToString(); //rfid.id
-                                                                                  //txtCurrentEpc.Text = dataRow.ItemArray[1].ToString(); //rfid.epc here for reference not LIVE. Epc retrieved from Tag Results.
-                        txtRFIDManufactureDate.Text = item["attributes"]["manufacture_date"].ToString();//rfid.manufacture_date
-                        txtRFIDInstallationDate.Text = item["attributes"]["installation_date"].ToString();//rfid.installation_date
-                        txtAssetID.Text = item["attributes"]["asset_id"].ToString();//rfid.asset_id
-                        txtRFIDComments.Text = (string)item["attributes"]["comments"];//rfid.comments
+                        txtboxRFIDObjectID.Text = item["attributes"]["OBJECTID"]?.ToString() ?? "null"; //rfid.id
+                        txtRFIDDatabaseID.Text = item["attributes"]["id"]?.ToString() ?? "null"; //rfid.id
+                                                                                                 //txtCurrentEpc.Text = dataRow.ItemArray[1].ToString(); //rfid.epc here for reference not LIVE. Epc retrieved from Tag Results.
+                        txtRFIDManufactureDate.Text = item["attributes"]["manufacture_date"]?.ToString() ?? "null";//rfid.manufacture_date
+                        txtRFIDInstallationDate.Text = item["attributes"]["installation_date"]?.ToString() ?? "null";//rfid.installation_date
+                        txtAssetID.Text = item["attributes"]["asset_id"]?.ToString() ?? "null";//rfid.asset_id
+                        txtRFIDComments.Text = item["attributes"]["comments"]?.ToString() ?? "null";//rfid.comments
 
 
 
                     }
                 }
+
+                if(txtAssetID.Text != "")
+                {
+                    foreach (var item2 in responseDict["layers"][0]["features"])
+                    {
+                        if (item2["attributes"]["OBJECTID"] == int.Parse(txtAssetID.Text))
+                        {
+                            //asset table data
+                            txtAssetIDAsset.Text = item2["attributes"]["OBJECTID"]?.ToString() ?? "null";//asset.id
+                            txtLaneDirection.Text = item2["attributes"]["LaneDirection"]?.ToString() ?? "null";//asset.lane_direction
+                            txtPositionCode.Text = item2["attributes"]["PositionCode"]?.ToString() ?? "null";//asset.position_code
+                            txtRouteSuffix.Text = item2["attributes"]["RouteSuffix"]?.ToString() ?? "null";//asset.route_suffix
+                            txtMarker.Text = item2["attributes"]["Marker"]?.ToString() ?? "null";//asset.marker
+                            txtCity.Text = item2["attributes"]["City"]?.ToString() ?? "null";//asset.city
+                            txtCounty.Text = item2["attributes"]["County"]?.ToString() ?? "null";//asset.county
+                            txtDistrict.Text = item2["attributes"]["District"]?.ToString() ?? "null";//asset.district
+                            txtStreetName.Text = item2["attributes"]["STREETNAME"]?.ToString() ?? "null";//asset.streetname
+                            txtMutcdCode.Text = item2["attributes"]["MUTCDCode"]?.ToString() ?? "null";//asset.mutcd_code
+                            txtRetired.Text = item2["attributes"]["Retired"]?.ToString() ?? "null";//asset.retired
+                            txtReplaced.Text = item2["attributes"]["Replaced"]?.ToString() ?? "null";//asset.replaced
+                            txtSignAge.Text = item2["attributes"]["SignAge"]?.ToString() ?? "null";//asset.sign_age
+                            txtTwnTid.Text = item2["attributes"]["TWN_TID"]?.ToString() ?? "null";//asset.twn_tid
+                            txtTwnMi.Text = item2["attributes"]["TWN_MI"]?.ToString() ?? "null";//asset.twn_mi
+                            txtQcFlag.Text = item2["attributes"]["QCFLAG"]?.ToString() ?? "null";//asset.qc_flag
+                            txtMinTwnFm.Text = item2["attributes"]["MIN_TWN_FMI"]?.ToString() ?? "null";//asset.min_twn_fm
+                            txtMaxTwnTm.Text = item2["attributes"]["MAX_TWN_TMI"]?.ToString() ?? "null";//asset.max_twn_tm
+                            txtSrSid.Text = item2["attributes"]["SR_SID"]?.ToString() ?? "null";//asset.sr_sid
+                            txtSignHeight.Text = item2["attributes"]["SignHeight"]?.ToString() ?? "null";//asset.sign_height
+                            txtSignWidth.Text = item2["attributes"]["SignWidth"]?.ToString() ?? "null";//asset.sign_width
+                        }
+                    }
+                }
+                
                 
 
 
