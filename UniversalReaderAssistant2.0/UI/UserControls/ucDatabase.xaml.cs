@@ -401,8 +401,8 @@ namespace ThingMagic.URA2
         /// </summary>
         private bool retrieveData()
         {
-            
-            
+
+
             //IF we are using the VTrans REST API
             if (chkBoxREST.IsChecked == true)
             {
@@ -423,8 +423,8 @@ namespace ThingMagic.URA2
                         return false;
                     }
 
-                    
-                        return true;
+
+                    return true;
                 }
 
                 //When there is not Internet Connection Innitiate sync by creating a replica
@@ -432,15 +432,12 @@ namespace ThingMagic.URA2
                 {
                     MessageBox.Show("No internet connection. Offline mode only.", "No Internet Connection", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
-                    return false;  
-                }    
+                    return false;
+                }
             }
 
             else if (chkBoxOFFLINE.IsChecked == true)
             {
-
-               
-
 
                 string jsonReplicaString = System.IO.File.ReadAllText(@"C:\Users\Joshua Childs\Desktop\URA-cs\UniversalReaderAssistant2.0\bin\x64\Debug\replica.json");
                 //Console.WriteLine(jsonReplicaString);
@@ -450,11 +447,27 @@ namespace ThingMagic.URA2
                 dynamic responseDict = serializer.Deserialize<dynamic>(jsonReplicaString);
 
 
-                foreach (KeyValuePair<string, object> kvp in responseDict)
+                foreach (var item in responseDict["layers"][1]["features"])
                 {
-                    Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+                    
+                    Console.WriteLine((string)item["attributes"]["epc"]);
+                    if ((string)item["attributes"]["epc"] == txtCurrentEpc.Text)
+                    {
+                        //rfid table data
+                        txtboxRFIDObjectID.Text = item["attributes"]["OBJECTID"].ToString(); //rfid.id
+                        txtRFIDDatabaseID.Text = item["attributes"]["id"].ToString(); //rfid.id
+                                                                                  //txtCurrentEpc.Text = dataRow.ItemArray[1].ToString(); //rfid.epc here for reference not LIVE. Epc retrieved from Tag Results.
+                        txtRFIDManufactureDate.Text = item["attributes"]["manufacture_date"].ToString();//rfid.manufacture_date
+                        txtRFIDInstallationDate.Text = item["attributes"]["installation_date"].ToString();//rfid.installation_date
+                        txtAssetID.Text = item["attributes"]["asset_id"].ToString();//rfid.asset_id
+                        txtRFIDComments.Text = (string)item["attributes"]["comments"];//rfid.comments
 
+
+
+                    }
                 }
+                
+
 
 
                 return false;
