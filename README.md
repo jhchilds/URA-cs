@@ -22,11 +22,8 @@ This is comprehensive RFID reader software built from the C# version of the Merc
 ### This project only involves editing a few files in the UniversalReaderAssistant Application
 Do not add any other files to git. 
 
-## DO NOT USE COMMAND `git add -A` 
-There are too many files in the URA for git to handle and it WILL crash if you try to force adding all of these files. We will only be using version control for specific files concerning the UniversalReaderAssistant. 
-
-### MICROSOFT VISUAL STUDIO BUG 
-There is a bug in Visual Studio that I researched thoroughly. Although the project will build and run smoothly, VS will say there is an error with an XAML file "Busy Indicator". In reality, there is no issue, but it gets annoying because VS will not permit you to look at the Design Windows for UI modification.
+#### Visual Studio Bug 
+There was a bug in Visual Studio that I researched thoroughly during the time of this work. Although the project will build and run smoothly, VS will say there is an error with an XAML file "Busy Indicator". In reality, there is no issue, but it gets annoying because VS will not permit you to look at the Design Windows for UI modification.
 # To fix this
 1. Change the target build to  "Release x64". 
 2. Clean and Rebuild the project. 
